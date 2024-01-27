@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ddgrbicc6wra1"]
+[gd_scene load_steps=14 format=3 uid="uid://ddgrbicc6wra1"]
 
 [ext_resource type="Script" path="res://scenes/note.gd" id="1_04dr8"]
 [ext_resource type="Texture2D" uid="uid://cydberf7l2ja4" path="res://2d_assets/beat_icon_cake.png" id="2_p05t0"]
@@ -38,10 +38,10 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_bt68p")
+"texture": ExtResource("8_6qx1w")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_6qx1w")
+"texture": ExtResource("7_bt68p")
 }, {
 "duration": 1.0,
 "texture": ExtResource("9_25qmy")
@@ -54,8 +54,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Note" type="Node2D"]
-scale = Vector2(0.3, 0.3)
+[sub_resource type="CircleShape2D" id="CircleShape2D_63cpv"]
+radius = 330.151
+
+[node name="Note" type="CharacterBody2D"]
+scale = Vector2(0.2, 0.2)
 script = ExtResource("1_04dr8")
 
 [node name="action" type="AnimatedSprite2D" parent="."]
@@ -64,3 +67,6 @@ sprite_frames = SubResource("SpriteFrames_usluc")
 
 [node name="key" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tx31o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_63cpv")

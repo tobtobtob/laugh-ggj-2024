@@ -1,30 +1,76 @@
-[gd_scene load_steps=7 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=14 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
-[ext_resource type="Script" path="res://scenes/beat_nodes.gd" id="3_lxcu5"]
-[ext_resource type="AudioStream" uid="uid://bcmvyl3tii65p" path="res://sounds/test_theme.wav" id="4_1ev4r"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
+[ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
+[ext_resource type="AudioStream" uid="uid://bvcw2mfc2v431" path="res://sounds/test_theme_slow.wav" id="5_unwds"]
+[ext_resource type="Script" path="res://scenes/Controller.gd" id="7_fomf7"]
+[ext_resource type="Texture2D" uid="uid://cbnvkiwoeed8p" path="res://2d_assets/hit_effect.png" id="8_e737l"]
 [ext_resource type="Script" path="res://scenes/Conductor.gd" id="8_k2htu"]
+[ext_resource type="AudioStream" uid="uid://ch4u36w8i6cmm" path="res://sounds/drum.wav" id="10_p0n5f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
+size = Vector2(192, 187)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a01gc"]
+font_size = 100
+font_color = Color(1, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_6o673"]
+font_size = 100
+font_color = Color(0, 1, 0, 1)
 
 [node name="main_scene" type="Node2D"]
 script = ExtResource("1_360tj")
 
 [node name="audience_scene" parent="." instance=ExtResource("1_jkj1t")]
 
-[node name="beat_nodes" type="Node2D" parent="."]
-script = ExtResource("3_lxcu5")
-
-[node name="Queue" type="Node2D" parent="beat_nodes"]
-position = Vector2(154, 85)
-script = ExtResource("4_oeoi5")
-
 [node name="Conductor" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_1ev4r")
+stream = ExtResource("5_unwds")
 script = ExtResource("8_k2htu")
 
 [node name="StartTimer" type="Timer" parent="Conductor"]
 
-[node name="Drum" type="AudioStreamPlayer" parent="Conductor"]
+[node name="Controller" type="Node2D" parent="."]
+script = ExtResource("7_fomf7")
 
-[connection signal="beat" from="Conductor" to="beat_nodes" method="_on_conductor_beat"]
+[node name="Queue" type="Node2D" parent="."]
+position = Vector2(-148, 61)
+script = ExtResource("4_oeoi5")
+
+[node name="Hitbox" type="Area2D" parent="Queue"]
+script = ExtResource("5_ouxpd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Queue/Hitbox"]
+shape = SubResource("RectangleShape2D_n647k")
+
+[node name="Sprite2D" type="Sprite2D" parent="Queue/Hitbox"]
+texture = ExtResource("8_e737l")
+hframes = 2
+
+[node name="Note" parent="Queue" instance=ExtResource("3_v4aav")]
+position = Vector2(-90, -351)
+
+[node name="FailureLabel" type="Label" parent="Queue"]
+offset_left = 1794.0
+offset_top = 19.0
+offset_right = 1871.0
+offset_bottom = 156.0
+text = "0"
+label_settings = SubResource("LabelSettings_a01gc")
+
+[node name="SuccessLabel" type="Label" parent="Queue"]
+offset_left = 1941.0
+offset_top = 19.0
+offset_right = 1998.0
+offset_bottom = 156.0
+text = "0"
+label_settings = SubResource("LabelSettings_6o673")
+
+[node name="Drum" type="AudioStreamPlayer" parent="Queue"]
+stream = ExtResource("10_p0n5f")
+
+[connection signal="beat" from="Conductor" to="Queue" method="_on_conductor_beat"]
+[connection signal="body_entered" from="Queue/Hitbox" to="Queue/Note" method="_on_hitbox_body_entered"]

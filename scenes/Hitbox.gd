@@ -1,17 +1,13 @@
-extends Node2D
+extends Area2D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	var queue = get_parent()
+	position = queue.position
+	position.x += (queue.QUEUE_LENGTH -1 ) * queue.QUEUE_X_OFFSET_PX - 90
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_conductor_beat(position):
-	#move only on half beats
-	if position == 0:
-		$Queue.move_queue()

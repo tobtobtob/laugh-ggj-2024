@@ -1,6 +1,7 @@
 extends AudioStreamPlayer
 
-@export var bpm := 120
+
+@export var bpm := 90*2
 
 # Tracking the beat and song position
 var song_position = 0.0
@@ -30,10 +31,8 @@ func _physics_process(_delta):
 
 func _report_beat():
 	if last_reported_beat < song_position_in_beats:
-		emit_signal("beat", song_position_in_beats)
+		emit_signal("beat", song_position_in_beats%2)
 		last_reported_beat = song_position_in_beats
-		$Drum.play()
-		print(song_position_in_beats)
 
 func play_with_beat_offset(num):
 	print('play')
