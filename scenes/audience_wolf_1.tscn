@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfl11u5d167ty"]
+[gd_scene load_steps=13 format=3 uid="uid://bfl11u5d167ty"]
 
+[ext_resource type="Script" path="res://scenes/audience_character.gd" id="1_73roi"]
 [ext_resource type="Texture2D" uid="uid://buokssbotx6w" path="res://2d_assets/audience_files/audience_wolf_1.PNG" id="1_tyhp4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vp5xi"]
@@ -13,16 +14,140 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_ml2uw"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -10), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.15, 0.15), Vector2(0.15, 0.152), Vector2(0.15, 0.15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u8o0f"]
+resource_name = "laugh"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -20), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.15, 0.15), Vector2(0.15, 0.17), Vector2(0.16, 0.14), Vector2(0.15, 0.15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0872665, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_du1ll"]
+_data = {
+"idle": SubResource("Animation_ml2uw"),
+"laugh": SubResource("Animation_u8o0f")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hg50o"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dig0r"]
+animation = &"laugh"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xuk8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8mgy7"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"laugh"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1lgyv"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"idle"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_o42k4"]
+states/idle/node = SubResource("AnimationNodeAnimation_hg50o")
+states/idle/position = Vector2(502, 52)
+states/laugh/node = SubResource("AnimationNodeAnimation_dig0r")
+states/laugh/position = Vector2(419, 147)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_3xuk8"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_8mgy7"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_1lgyv")]
 
 [node name="audience_wolf_1" type="Node2D"]
+script = ExtResource("1_73roi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+position = Vector2(0, -10)
+rotation = -0.0290888
+scale = Vector2(0.15, 0.17)
 sprite_frames = SubResource("SpriteFrames_vp5xi")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_du1ll")
+}
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
+libraries = {
+"": SubResource("AnimationLibrary_du1ll")
+}
 tree_root = SubResource("AnimationNodeStateMachine_o42k4")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/laugh = false
