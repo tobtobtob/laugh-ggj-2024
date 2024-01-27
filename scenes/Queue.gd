@@ -2,11 +2,7 @@ extends Node2D
 
 enum {CAKE, DRUM, FROG, SOCK, REST}
 
-var test_level = [REST, REST, REST, REST, REST, DRUM, REST, DRUM,
-REST, DRUM, REST, DRUM, REST, DRUM, DRUM, DRUM,
-REST, DRUM, REST, DRUM, REST, DRUM, DRUM,
-DRUM, REST, DRUM, REST, DRUM, REST, DRUM,
-REST, REST]
+var level
 
 var hit_effect = load("res://scenes/success_effect.tscn")
 var note_scene = load("res://scenes/Note.tscn")
@@ -23,13 +19,16 @@ var failures = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	pass
+
+func init_queue():
 	for n in QUEUE_LENGTH:
-		var note = create_note(test_level.pop_front())
+		var note = create_note(level.pop_front())
 		note.position = position
 		note.position.x = (QUEUE_LENGTH -1 -n) * QUEUE_X_OFFSET_PX
 		note.target_position = note.position
 		notes.append(note)
-
+	
 func create_note(type):
 	var note = note_scene.instantiate()
 	note.type = type
@@ -46,12 +45,17 @@ func update_queue_positions():
 func move_queue():
 	var destroy_node = notes.pop_front()
 	remove_child(destroy_node)
-	if test_level.size() > 0:
-		notes.append(create_note(test_level.pop_front()))
+	if level.size() > 0:
+		notes.append(create_note(level.pop_front()))
+	if notes.size() == 0:
+		get_parent().level_completed()
+		return
 	update_queue_positions()
 	
 func lose_hp():
 	$HitPoints.lose_hp()
+	if $HitPoints.get_hp() <= 0:
+		get_parent().game_over()
 
 func validate_input(action):
 	if current_note and action == current_note.type:
@@ -65,17 +69,22 @@ func validate_input(action):
 
 func _process(delta):
 	if Input.is_action_just_pressed("KEY_CAKE"):
+		get_parent().trigger_animation(CAKE)
 		validate_input(CAKE)
 	elif Input.is_action_just_pressed("KEY_SOCK"):
+		get_parent().trigger_animation(SOCK)
 		validate_input(SOCK)
 	elif Input.is_action_just_pressed("KEY_DRUM"):
+		get_parent().trigger_animation(DRUM)
 		$Drum.play()
 		validate_input(DRUM)
 	elif Input.is_action_just_pressed("KEY_FROG"):
+		get_parent().trigger_animation(FROG)
 		validate_input(FROG)
 
 
 func _on_conductor_beat(position):
+	print('beat')
 	if position == 0:
 		move_queue()
 

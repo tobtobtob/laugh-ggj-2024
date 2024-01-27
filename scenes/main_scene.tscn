@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="AudioStream" uid="uid://bvcw2mfc2v431" path="res://sounds/test_theme_slow.wav" id="5_unwds"]
@@ -58,6 +58,9 @@ visible = false
 [node name="main_character" parent="." instance=ExtResource("12_56j7o")]
 position = Vector2(978, 703)
 
+[node name="LevelChangeTimer" type="Timer" parent="."]
+
 [connection signal="beat" from="Conductor" to="Controller" method="_on_conductor_beat"]
 [connection signal="body_entered" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_exited"]
+[connection signal="timeout" from="LevelChangeTimer" to="." method="_on_level_change_timer_timeout"]

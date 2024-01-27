@@ -8,19 +8,19 @@ func _ready():
 
 func anim_cake():
 	animation_tree["parameters/conditions/cake"] = true
-	return_idle.play(0.1)
+	return_idle.start(0.1)
 	
 func anim_frog():
 	animation_tree["parameters/conditions/frog"] = true
-	return_idle.play(0.1)
+	return_idle.start(0.1)
 	
 func anim_drum():
 	animation_tree["parameters/conditions/drum"] = true
-	return_idle.play(0.1)
+	return_idle.start(0.1)
 	
 func anim_sock():
 	animation_tree["parameters/conditions/sock"] = true
-	return_idle.play(0.1)
+	return_idle.start(0.1)
 
 func _on_timer_timeout():
 	animation_tree["parameters/conditions/cake"] = false

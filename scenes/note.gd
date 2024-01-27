@@ -44,6 +44,7 @@ func _process(delta):
 func _on_hitbox_body_entered(body):
 	get_parent().set_current_note(body)
 
+
 func _on_hitbox_body_exited(body):
 	if(!body.note_hit and body.type != REST):
 		print(body.note_hit)
