@@ -1,147 +1,56 @@
-[gd_scene load_steps=13 format=3 uid="uid://bcqa2j7geawrm"]
+[gd_scene load_steps=11 format=3 uid="uid://ch2tce3apyupm"]
 
-[ext_resource type="Script" path="res://scenes/audience_character.gd" id="3_8c7gd"]
-[ext_resource type="Texture2D" uid="uid://bowrqk4v2s6sp" path="res://2d_assets/audience_files/test_orc_sheet.png" id="4_2aygp"]
-
-[sub_resource type="Animation" id="Animation_drull"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-13.3333, -440)]
-}
-
-[sub_resource type="Animation" id="Animation_aiw7r"]
-resource_name = "orc_state_1"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-5.72205e-06, -46.6671), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="Animation" id="Animation_ig0o4"]
-resource_name = "orc_state_2"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0001, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(-1.90735e-06, -13.9547), Vector2(-2.86102e-06, -20.4331), Vector2(-55.3333, 3.99998), Vector2(-1.90735e-06, -13.9547)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_vof5v"]
-_data = {
-"RESET": SubResource("Animation_drull"),
-"orc_state_1": SubResource("Animation_aiw7r"),
-"orc_state_2": SubResource("Animation_ig0o4")
-}
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xowog"]
-animation = &"orc_state_1"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g11vk"]
-animation = &"orc_state_2"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ny6gn"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_522cm"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"laughing"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8w7kg"]
-switch_mode = 1
-advance_mode = 2
-advance_condition = &"happy"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_q0hog"]
-reset_ends = true
-states/End/position = Vector2(844, 204)
-states/Start/position = Vector2(356, 193)
-states/orc_state_1/node = SubResource("AnimationNodeAnimation_xowog")
-states/orc_state_1/position = Vector2(547, 131)
-states/orc_state_2/node = SubResource("AnimationNodeAnimation_g11vk")
-states/orc_state_2/position = Vector2(572, 276)
-transitions = ["Start", "orc_state_1", SubResource("AnimationNodeStateMachineTransition_ny6gn"), "orc_state_1", "orc_state_2", SubResource("AnimationNodeStateMachineTransition_522cm"), "orc_state_2", "orc_state_1", SubResource("AnimationNodeStateMachineTransition_8w7kg")]
-graph_offset = Vector2(-176, 18)
+[ext_resource type="Script" path="res://scenes/audience_controller.gd" id="1_r11ur"]
+[ext_resource type="PackedScene" uid="uid://cn1dor2ehu0vk" path="res://scenes/audience_devil_1.tscn" id="2_5a18j"]
+[ext_resource type="PackedScene" uid="uid://bc1w0k1rhh3e4" path="res://scenes/audience_devil_2.tscn" id="3_jk6yo"]
+[ext_resource type="PackedScene" uid="uid://bgm4ip2woovwt" path="res://scenes/audience_orc_1.tscn" id="4_c0egq"]
+[ext_resource type="PackedScene" uid="uid://b81csp3u2ot06" path="res://scenes/audience_orc_2.tscn" id="5_mwkde"]
+[ext_resource type="PackedScene" uid="uid://bt0vssqiquksm" path="res://scenes/audience_viking_1.tscn" id="6_2hqd0"]
+[ext_resource type="PackedScene" uid="uid://bjoyc6epchm05" path="res://scenes/audience_viking_2.tscn" id="7_yu45u"]
+[ext_resource type="PackedScene" uid="uid://bfl11u5d167ty" path="res://scenes/audience_wolf_1.tscn" id="8_qsdr6"]
+[ext_resource type="PackedScene" uid="uid://dwbjkhosh5vgc" path="res://scenes/audience_wolf_2.tscn" id="9_si4lx"]
+[ext_resource type="Texture2D" uid="uid://bom18uiyfqaos" path="res://2d_assets/background.PNG" id="10_1g1us"]
 
 [node name="audience_scene" type="Node2D"]
-script = ExtResource("3_8c7gd")
+script = ExtResource("1_r11ur")
 
-[node name="test_orc_1" type="Node2D" parent="."]
-position = Vector2(2670, 881)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("3_8c7gd")
+[node name="audience_devil_1" parent="." instance=ExtResource("2_5a18j")]
+z_index = 3
+position = Vector2(271, 791)
 
-[node name="Sprite2D" type="Sprite2D" parent="test_orc_1"]
-position = Vector2(-13.3333, -440)
-texture = ExtResource("4_2aygp")
-hframes = 2
+[node name="audience_devil_2" parent="." instance=ExtResource("3_jk6yo")]
+z_index = 6
+position = Vector2(1778, 800)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="test_orc_1"]
-libraries = {
-"": SubResource("AnimationLibrary_vof5v")
-}
+[node name="audience_orc_1" parent="." instance=ExtResource("4_c0egq")]
+z_index = 4
+position = Vector2(1371, 838)
 
-[node name="AnimationTree" type="AnimationTree" parent="test_orc_1"]
-active = false
-libraries = {
-"": SubResource("AnimationLibrary_vof5v")
-}
-tree_root = SubResource("AnimationNodeStateMachine_q0hog")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/happy = false
-parameters/conditions/laughing = false
+[node name="audience_orc_2" parent="." instance=ExtResource("5_mwkde")]
+process_priority = 3
+z_index = 1
+position = Vector2(672, 851)
+
+[node name="audience_viking_1" parent="." instance=ExtResource("6_2hqd0")]
+z_index = 3
+position = Vector2(1758, 513)
+
+[node name="audience_viking_2" parent="." instance=ExtResource("7_yu45u")]
+z_index = 1
+position = Vector2(169, 573)
+
+[node name="audience_wolf_1" parent="." instance=ExtResource("8_qsdr6")]
+z_index = 2
+position = Vector2(505, 707)
+
+[node name="audience_wolf_2" parent="." instance=ExtResource("9_si4lx")]
+z_index = 1
+position = Vector2(1486, 591)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("10_1g1us")
+offset = Vector2(960, 540)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
