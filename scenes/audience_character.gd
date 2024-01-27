@@ -17,3 +17,7 @@ func update_animation_state():
 	elif state == "laugh":
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/laugh"] = true
+	elif state == "attack":
+		animation_tree["parameters/conditions/attack"] = true
+		animation_tree["parameters/conditions/idle"] = false
+		animation_tree["parameters/conditions/laugh"] = false

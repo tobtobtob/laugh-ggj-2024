@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bc1w0k1rhh3e4"]
+[gd_scene load_steps=16 format=3 uid="uid://bc1w0k1rhh3e4"]
 
 [ext_resource type="Script" path="res://scenes/audience_character.gd" id="1_4o4sc"]
 [ext_resource type="Texture2D" uid="uid://cafrlw7021gku" path="res://2d_assets/audience_files/audience_devil_2.PNG" id="1_dd287"]
@@ -95,11 +95,54 @@ tracks/2/keys = {
 "values": [0.00872665, 0.23911, 0.00872665]
 }
 
+[sub_resource type="Animation" id="Animation_mm57y"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.0174533]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.15, 0.15)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sguov"]
 _data = {
+"attack": SubResource("Animation_mm57y"),
 "idle": SubResource("Animation_6ifik"),
 "laugh": SubResource("Animation_0dwni")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1vfvb"]
+animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7i2i3"]
 animation = &"idle"
@@ -121,21 +164,27 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_piomc"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"attack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2n64n"]
+states/attack/node = SubResource("AnimationNodeAnimation_1vfvb")
+states/attack/position = Vector2(680, -16)
 states/idle/node = SubResource("AnimationNodeAnimation_7i2i3")
 states/idle/position = Vector2(453, -30)
 states/laugh/node = SubResource("AnimationNodeAnimation_y32lp")
 states/laugh/position = Vector2(505, 146)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_jfvpu"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_ivpwc"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_pfp34")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_jfvpu"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_ivpwc"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_pfp34"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_piomc")]
 graph_offset = Vector2(-170, -102)
 
 [node name="audience_devil_2" type="Node2D"]
 script = ExtResource("1_4o4sc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(49.3094, -9.86188)
-rotation = 0.165498
-scale = Vector2(0.146598, 0.156805)
+rotation = -0.0174533
+scale = Vector2(0.15, 0.15)
 sprite_frames = SubResource("SpriteFrames_ql206")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -150,5 +199,6 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_2n64n")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
 parameters/conditions/idle = false
 parameters/conditions/laugh = false

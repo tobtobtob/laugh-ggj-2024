@@ -30,7 +30,6 @@ func set_audience_to_laughing(duration):
 		character.state = "laugh"
 	
 	laughing = true
-	print(laughing)
 	
 	timer.start(duration)
 		
@@ -39,7 +38,10 @@ func set_audience_to_idle():
 		character.state = "idle"
 		
 	laughing = false
-	print(laughing)
+	
+func set_audience_to_attack():
+	for character in audience:
+		character.state = "attack"
 
 func change_audience_state():
 	pass

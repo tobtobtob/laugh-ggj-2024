@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://bqp8xqrim1fbx"]
+[gd_scene load_steps=2 format=3 uid="uid://bqp8xqrim1fbx"]
+
+[ext_resource type="Texture2D" uid="uid://3oveprtjp23s" path="res://2d_assets/pause_effect.png" id="1_h00s1"]
 
 [node name="fail_effect" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_h00s1")
+hframes = 2

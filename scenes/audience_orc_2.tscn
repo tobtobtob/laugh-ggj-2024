@@ -1,7 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://b81csp3u2ot06"]
+[gd_scene load_steps=18 format=3 uid="uid://b81csp3u2ot06"]
 
 [ext_resource type="Texture2D" uid="uid://bdae10naie58e" path="res://2d_assets/audience_files/audience_orc_2.PNG" id="1_1qwc2"]
 [ext_resource type="Script" path="res://scenes/audience_character.gd" id="1_a4rpx"]
+[ext_resource type="Texture2D" uid="uid://b3pn62yyukal2" path="res://2d_assets/audience_files/spear.PNG" id="3_okpjg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0tvh0"]
 animations = [{
@@ -53,6 +54,18 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.1, 0.1), Vector2(0.095, 0.105), Vector2(0.1, 0.1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-125, 933)]
+}
 
 [sub_resource type="Animation" id="Animation_hmau7"]
 resource_name = "laugh"
@@ -94,12 +107,107 @@ tracks/2/keys = {
 "update": 0,
 "values": [Vector2(0.1, 0.1), Vector2(0.1, 0.16), Vector2(0.1, 0.1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-98, 901)]
+}
+
+[sub_resource type="Animation" id="Animation_ufdyn"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-165, 724), Vector2(49, 68), Vector2(49, 68)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.459077, -0.459077, -0.459077]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.25, 0.25), Vector2(0.25, 0.3), Vector2(0.25, 0.25)]
+}
+
+[sub_resource type="Animation" id="Animation_1vi0o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(49, 68)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.459077]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.25, 0.25)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_06k7k"]
 _data = {
+"RESET": SubResource("Animation_1vi0o"),
+"attack": SubResource("Animation_ufdyn"),
 "idle": SubResource("Animation_3al1v"),
 "laugh": SubResource("Animation_hmau7")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rkpwf"]
+animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w6yah"]
 animation = &"idle"
@@ -121,20 +229,26 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_efkyp"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"attack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_rr25j"]
+states/attack/node = SubResource("AnimationNodeAnimation_rkpwf")
+states/attack/position = Vector2(676, 109)
 states/idle/node = SubResource("AnimationNodeAnimation_w6yah")
 states/idle/position = Vector2(509, 51)
 states/laugh/node = SubResource("AnimationNodeAnimation_jhod7")
 states/laugh/position = Vector2(482, 174)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_umcqf"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_m6mk8"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_nyrnf")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_umcqf"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_m6mk8"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_nyrnf"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_efkyp")]
 
 [node name="audience_orc_2" type="Node2D"]
 script = ExtResource("1_a4rpx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(3.21972, -3.21972)
-rotation = 0.0187316
-scale = Vector2(0.1, 0.108586)
+rotation = -0.0174533
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_0tvh0")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -149,5 +263,14 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_rr25j")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
 parameters/conditions/idle = false
 parameters/conditions/laugh = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 7
+position = Vector2(49, 68)
+rotation = -0.459077
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_okpjg")
+flip_h = true

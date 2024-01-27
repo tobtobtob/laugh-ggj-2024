@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bjoyc6epchm05"]
+[gd_scene load_steps=16 format=3 uid="uid://bjoyc6epchm05"]
 
 [ext_resource type="Script" path="res://scenes/audience_character.gd" id="1_721ho"]
 [ext_resource type="Texture2D" uid="uid://ch6itysdcvmtr" path="res://2d_assets/audience_files/audience_viking_2.PNG" id="1_y7oc0"]
@@ -96,11 +96,54 @@ tracks/2/keys = {
 "values": [0.0349066, -0.0349066, 0.0349066]
 }
 
+[sub_resource type="Animation" id="Animation_ch34a"]
+resource_name = "attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0349066]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.22, 0.22)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8i3y4"]
 _data = {
+"attack": SubResource("Animation_ch34a"),
 "idle": SubResource("Animation_ksfgd"),
 "laugh": SubResource("Animation_uspa0")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_s8i8x"]
+animation = &"attack"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_spup3"]
 animation = &"idle"
@@ -122,20 +165,26 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"idle"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bmjjs"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"attack"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_12r3m"]
+states/attack/node = SubResource("AnimationNodeAnimation_s8i8x")
+states/attack/position = Vector2(720, 68)
 states/idle/node = SubResource("AnimationNodeAnimation_spup3")
 states/idle/position = Vector2(509, 37)
 states/laugh/node = SubResource("AnimationNodeAnimation_2a0ds")
 states/laugh/position = Vector2(478, 170)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_34v33"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_8og0c"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_wwa5b")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_34v33"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_8og0c"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_wwa5b"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_bmjjs")]
 
 [node name="audience_viking_2" type="Node2D"]
 script = ExtResource("1_721ho")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -11.68)
-rotation = -0.0194545
-scale = Vector2(0.22, 0.227707)
+rotation = 0.0349066
+scale = Vector2(0.22, 0.22)
 sprite_frames = SubResource("SpriteFrames_4hbm2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -150,5 +199,6 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_12r3m")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
 parameters/conditions/idle = false
 parameters/conditions/laugh = false
