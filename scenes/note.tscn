@@ -1,0 +1,66 @@
+[gd_scene load_steps=13 format=3 uid="uid://ddgrbicc6wra1"]
+
+[ext_resource type="Script" path="res://scenes/note.gd" id="1_04dr8"]
+[ext_resource type="Texture2D" uid="uid://cydberf7l2ja4" path="res://2d_assets/beat_icon_cake.png" id="2_p05t0"]
+[ext_resource type="Texture2D" uid="uid://dcos4pm5lmit2" path="res://2d_assets/beat_icon_drum.png" id="3_xan63"]
+[ext_resource type="Texture2D" uid="uid://btsvg5u1kvlrh" path="res://2d_assets/beat_icon_frog.png" id="4_smpnh"]
+[ext_resource type="Texture2D" uid="uid://be1mu6r27ugph" path="res://2d_assets/beat_icon_sock.png" id="5_j50j6"]
+[ext_resource type="Texture2D" uid="uid://bjdiwyg4na8kc" path="res://2d_assets/beat_pause.png" id="6_iqf7n"]
+[ext_resource type="Texture2D" uid="uid://wklu20mtih27" path="res://2d_assets/beat_control_cake.png" id="7_bt68p"]
+[ext_resource type="Texture2D" uid="uid://bbcj56b6jxtvk" path="res://2d_assets/beat_control_drum.png" id="8_6qx1w"]
+[ext_resource type="Texture2D" uid="uid://d1nyibwqcqcxm" path="res://2d_assets/beat_control_frog.png" id="9_25qmy"]
+[ext_resource type="Texture2D" uid="uid://dvn6fxo0jmqax" path="res://2d_assets/beat_control_sock.png" id="10_k2kax"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_usluc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p05t0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_xan63")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_smpnh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_j50j6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_iqf7n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tx31o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_bt68p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_6qx1w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_25qmy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_k2kax")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Note" type="Node2D"]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_04dr8")
+
+[node name="action" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.25, -2.75)
+sprite_frames = SubResource("SpriteFrames_usluc")
+
+[node name="key" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_tx31o")
