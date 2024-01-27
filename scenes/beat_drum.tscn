@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://xonnyrkr0q4l"]
+
+[ext_resource type="Texture2D" uid="uid://bbcj56b6jxtvk" path="res://2d_assets/beat_control_drum.png" id="1_sx0iy"]
+[ext_resource type="Texture2D" uid="uid://dcos4pm5lmit2" path="res://2d_assets/beat_icon_drum.png" id="2_grer4"]
+
+[node name="beat_drum" type="Node2D"]
+
+[node name="letter" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_sx0iy")
+
+[node name="icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_grer4")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://u4cdb764obbe"]
+
+[ext_resource type="Texture2D" uid="uid://bjdiwyg4na8kc" path="res://2d_assets/beat_pause.png" id="1_fjbud"]
+
+[node name="beat_pause" type="Node2D"]
+
+[node name="icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_fjbud")

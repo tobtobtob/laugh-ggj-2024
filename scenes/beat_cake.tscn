@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cn2yc2ha3c7ef"]
+
+[ext_resource type="Texture2D" uid="uid://wklu20mtih27" path="res://2d_assets/beat_control_cake.png" id="1_kfumt"]
+[ext_resource type="Texture2D" uid="uid://cydberf7l2ja4" path="res://2d_assets/beat_icon_cake.png" id="2_kwkc7"]
+
+[node name="beat_cake" type="Node2D"]
+
+[node name="letter" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_kfumt")
+
+[node name="icon" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_kwkc7")

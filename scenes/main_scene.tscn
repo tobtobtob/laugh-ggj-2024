@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://ogyy8baigju7"]
+
+[ext_resource type="PackedScene" uid="uid://bcqa2j7geawrm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
+[ext_resource type="PackedScene" uid="uid://cn2yc2ha3c7ef" path="res://scenes/beat_cake.tscn" id="2_n5vof"]
+[ext_resource type="PackedScene" uid="uid://xonnyrkr0q4l" path="res://scenes/beat_drum.tscn" id="3_qo7xm"]
+[ext_resource type="PackedScene" uid="uid://bryk1m6etd5l" path="res://scenes/beat_frog.tscn" id="4_yjxhn"]
+[ext_resource type="PackedScene" uid="uid://d1eu5llxfrgf4" path="res://scenes/beat_sock.tscn" id="5_8n0by"]
+[ext_resource type="PackedScene" uid="uid://u4cdb764obbe" path="res://scenes/beat_pause.tscn" id="6_a0oav"]
+
+[node name="main_scene" type="Node2D"]
+
+[node name="audience_scene" parent="." instance=ExtResource("1_jkj1t")]
+
+[node name="beat_nodes" type="Node2D" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="beat_nodes"]
+
+[node name="beat_cake" parent="beat_nodes/CanvasGroup" instance=ExtResource("2_n5vof")]
+position = Vector2(960, 125)
+
+[node name="beat_drum" parent="beat_nodes/CanvasGroup" instance=ExtResource("3_qo7xm")]
+position = Vector2(717, 125)
+
+[node name="beat_frog" parent="beat_nodes/CanvasGroup" instance=ExtResource("4_yjxhn")]
+position = Vector2(489, 125)
+
+[node name="beat_sock" parent="beat_nodes/CanvasGroup" instance=ExtResource("5_8n0by")]
+position = Vector2(270, 125)
+
+[node name="beat_pause" parent="beat_nodes/CanvasGroup" instance=ExtResource("6_a0oav")]
+position = Vector2(50, 125)
