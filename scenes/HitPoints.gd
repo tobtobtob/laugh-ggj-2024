@@ -1,6 +1,6 @@
 extends Node2D
 
-var Heart = load("res://Scenes/heart.tscn")
+var Heart = load("res://scenes/heart.tscn")
 
 const START_HP = 3
 const HEART_X_OFFSET_PX = 100

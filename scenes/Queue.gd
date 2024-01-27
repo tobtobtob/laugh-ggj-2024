@@ -9,7 +9,7 @@ DRUM, REST, DRUM, REST, DRUM, REST, DRUM,
 REST, REST]
 
 var hit_effect = load("res://scenes/success_effect.tscn")
-var note_scene = load("res://Scenes/Note.tscn")
+var note_scene = load("res://scenes/Note.tscn")
 
 const QUEUE_LENGTH = 8
 const QUEUE_X_OFFSET_PX = 200

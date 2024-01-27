@@ -1,12 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=14 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="AudioStream" uid="uid://bvcw2mfc2v431" path="res://sounds/test_theme_slow.wav" id="5_unwds"]
-[ext_resource type="Texture2D" uid="uid://bjdiwyg4na8kc" path="res://2d_assets/beat_pause.png" id="8_1kh3p"]
 [ext_resource type="Script" path="res://scenes/Conductor.gd" id="8_k2htu"]
 [ext_resource type="Script" path="res://scenes/HitPoints.gd" id="10_lnlax"]
 [ext_resource type="AudioStream" uid="uid://ch4u36w8i6cmm" path="res://sounds/drum.wav" id="10_p0n5f"]
@@ -39,11 +38,6 @@ script = ExtResource("5_ouxpd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Controller/Hitbox"]
 shape = SubResource("RectangleShape2D_n647k")
 
-[node name="Sprite2D" type="Sprite2D" parent="Controller/Hitbox"]
-position = Vector2(4, 4)
-scale = Vector2(0.30651, 0.325853)
-texture = ExtResource("8_1kh3p")
-
 [node name="Note" parent="Controller" instance=ExtResource("3_v4aav")]
 position = Vector2(-90, -351)
 
@@ -59,6 +53,7 @@ texture = ExtResource("11_qybty")
 centered = false
 
 [node name="fade_to_black" parent="." instance=ExtResource("12_775nf")]
+visible = false
 
 [node name="main_character" parent="." instance=ExtResource("12_56j7o")]
 position = Vector2(978, 703)
