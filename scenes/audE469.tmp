@@ -1,24 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://bcqa2j7geawrm"]
 
 [ext_resource type="Script" path="res://scenes/audience_controller.gd" id="1_lm16e"]
+[ext_resource type="Texture2D" uid="uid://b5wrswv0n1gdh" path="res://2d_assets/audience_orc_1.PNG" id="1_mxt68"]
 [ext_resource type="Texture2D" uid="uid://eil0n8drpw2u" path="res://2d_assets/audience_orc_2.PNG" id="2_6b52n"]
 [ext_resource type="Script" path="res://scenes/audience_character.gd" id="3_8c7gd"]
-[ext_resource type="Texture2D" uid="uid://bowrqk4v2s6sp" path="res://2d_assets/audience_files/test_orc_sheet.png" id="4_2aygp"]
-
-[sub_resource type="Animation" id="Animation_drull"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-13.3333, -440)]
-}
 
 [sub_resource type="Animation" id="Animation_aiw7r"]
 resource_name = "orc_state_1"
@@ -35,17 +20,20 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-5.72205e-06, -46.6671), Vector2(0, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_drull"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [Vector2(-13.3333, -440)]
 }
 
 [sub_resource type="Animation" id="Animation_ig0o4"]
@@ -61,19 +49,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.0001, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-1.90735e-06, -13.9547), Vector2(-2.86102e-06, -20.4331), Vector2(-55.3333, 3.99998), Vector2(-1.90735e-06, -13.9547)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"values": [Vector2(-1.90735e-06, -13.9547), Vector2(-2.86102e-06, -20.4331), Vector2(-100, -6.66717), Vector2(-1.90735e-06, -13.9547)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vof5v"]
@@ -126,14 +102,13 @@ scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_6b52n")
 
 [node name="test_orc_1" type="Node2D" parent="."]
-position = Vector2(1797, 881)
-scale = Vector2(1.5, 1.5)
+position = Vector2(1743, 817)
+scale = Vector2(0.15, 0.15)
 script = ExtResource("3_8c7gd")
 
 [node name="Sprite2D" type="Sprite2D" parent="test_orc_1"]
 position = Vector2(-13.3333, -440)
-texture = ExtResource("4_2aygp")
-hframes = 2
+texture = ExtResource("1_mxt68")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="test_orc_1"]
 libraries = {
