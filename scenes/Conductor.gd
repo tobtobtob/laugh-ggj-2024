@@ -35,7 +35,6 @@ func _report_beat():
 		last_reported_beat = song_position_in_beats
 
 func play_with_beat_offset(num):
-	#print('play')
 	beats_before_start = num
 	$StartTimer.wait_time = sec_per_beat
 	$StartTimer.start()

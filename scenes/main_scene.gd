@@ -3,16 +3,15 @@ extends Node2D
 enum {CAKE, DRUM, FROG, SOCK, REST}
 
 var levels = [
-	[REST, REST, REST, REST,REST, REST, REST, REST],
 	[REST, REST, REST, REST, REST, DRUM, REST, DRUM,
 	REST, DRUM, REST, DRUM, REST, DRUM, DRUM, DRUM,
 	REST, DRUM, REST, DRUM, REST, DRUM, DRUM, DRUM,
 	REST, DRUM, REST, DRUM, REST, DRUM, REST, REST]
 	,
-	[REST, REST, REST, REST, REST, DRUM, REST, DRUM,
-	REST, DRUM, REST, DRUM, REST, DRUM, DRUM, DRUM,
-	REST, DRUM, REST, DRUM, REST, DRUM, DRUM, DRUM,
-	REST, DRUM, REST, DRUM, REST, DRUM, REST, REST]
+	[REST, REST, REST, REST, REST, DRUM, FROG, DRUM,
+	REST, DRUM, REST, DRUM, REST, DRUM, FROG, FROG,
+	REST, DRUM, FROG, FROG, DRUM, REST, DRUM, DRUM,
+	REST, FROG, REST, FROG, REST, DRUM, REST, REST]
 ]
 
 const LEVEL_CHANGE_TIME = 3
@@ -31,6 +30,7 @@ func game_won():
 
 func game_over():
 	$Conductor.stop()
+	$audience_scene.set_audience_to_attack()
 
 func level_completed():
 	print('level_completed')

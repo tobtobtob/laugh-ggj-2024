@@ -84,7 +84,6 @@ func _process(delta):
 
 
 func _on_conductor_beat(position):
-	print('beat')
 	if position == 0:
 		move_queue()
 
