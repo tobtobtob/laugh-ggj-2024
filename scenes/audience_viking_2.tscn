@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjoyc6epchm05"]
+
+[ext_resource type="Texture2D" uid="uid://ch6itysdcvmtr" path="res://2d_assets/audience_files/audience_viking_2.PNG" id="1_y7oc0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4hbm2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_y7oc0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_12r3m"]
+
+[node name="audience_viking_2" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_4hbm2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_12r3m")
+anim_player = NodePath("../AnimationPlayer")

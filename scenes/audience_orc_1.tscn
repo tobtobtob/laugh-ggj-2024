@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgm4ip2woovwt"]
+
+[ext_resource type="Texture2D" uid="uid://dnkokx0eadua2" path="res://2d_assets/audience_files/audience_orc_1.PNG" id="1_t3cgp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2xs1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_t3cgp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3dbs5"]
+
+[node name="audience_orc_1" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_h2xs1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_3dbs5")
+anim_player = NodePath("../AnimationPlayer")

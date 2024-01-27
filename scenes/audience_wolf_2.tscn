@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwbjkhosh5vgc"]
+
+[ext_resource type="Texture2D" uid="uid://c7kuqanibwfpt" path="res://2d_assets/audience_files/audience_wolf_2.PNG" id="1_7ivts"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k8tlr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7ivts")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3njif"]
+
+[node name="audience_wolf_2" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_k8tlr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_3njif")
+anim_player = NodePath("../AnimationPlayer")
