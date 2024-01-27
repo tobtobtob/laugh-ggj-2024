@@ -9,9 +9,10 @@ DRUM, REST, DRUM, REST, DRUM, REST, DRUM,
 REST, REST]
 
 var note_scene = load("res://Scenes/Note.tscn")
+var hit_effect = load("res://scenes/success_effect.tscn")
 
-const QUEUE_LENGTH = 6
-const QUEUE_X_OFFSET_PX = 250
+const QUEUE_LENGTH = 8
+const QUEUE_X_OFFSET_PX = 200
 
 var current_note = REST
 
@@ -53,6 +54,11 @@ func validate_input(action):
 	if action == current_note:
 		success += 1
 		$SuccessLabel.text = str(success)
+		
+		#effect; this needs proper position
+		var hit_effect = hit_effect.instantiate()
+		add_child(hit_effect)
+		hit_effect.position = Vector2(960, 100)
 	else:
 		failures += 1
 		$FailureLabel.text = str(failures)

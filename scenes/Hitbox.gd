@@ -5,7 +5,7 @@ extends Area2D
 func _ready():
 	var queue = get_parent()
 	position = queue.position
-	position.x += (queue.QUEUE_LENGTH -1 ) * queue.QUEUE_X_OFFSET_PX - 90
+	position.x += (queue.QUEUE_LENGTH -1 ) * queue.QUEUE_X_OFFSET_PX
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
