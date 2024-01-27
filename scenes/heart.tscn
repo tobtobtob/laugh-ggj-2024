@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvh82rvu5qvlr"]
+
+[ext_resource type="Texture2D" uid="uid://cj65yl50iyhl4" path="res://2d_assets/heart.png" id="1_0wroc"]
+[ext_resource type="Script" path="res://scenes/heart.gd" id="1_ye2sr"]
+[ext_resource type="Texture2D" uid="uid://btnj3mcakn7jg" path="res://2d_assets/heart_broken.png" id="2_ye4wt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7nlbl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_0wroc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ye4wt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Heart" type="Node2D"]
+scale = Vector2(0.15, 0.15)
+script = ExtResource("1_ye2sr")
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7nlbl")

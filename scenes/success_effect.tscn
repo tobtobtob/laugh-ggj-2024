@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxhpymuk0xabo"]
+[gd_scene load_steps=5 format=3 uid="uid://ch8dlxnj8rb54"]
 
 [ext_resource type="Script" path="res://scenes/success_effect.gd" id="1_lsnbj"]
 [ext_resource type="Texture2D" uid="uid://cbnvkiwoeed8p" path="res://2d_assets/hit_effect.png" id="1_q5q1x"]
@@ -37,6 +37,7 @@ _data = {
 }
 
 [node name="success_effect" type="Node2D"]
+scale = Vector2(7, 7)
 script = ExtResource("1_lsnbj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,13 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=15 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="AudioStream" uid="uid://bvcw2mfc2v431" path="res://sounds/test_theme_slow.wav" id="5_unwds"]
-[ext_resource type="Script" path="res://scenes/Controller.gd" id="7_fomf7"]
+[ext_resource type="Texture2D" uid="uid://bjdiwyg4na8kc" path="res://2d_assets/beat_pause.png" id="8_1kh3p"]
 [ext_resource type="Script" path="res://scenes/Conductor.gd" id="8_k2htu"]
+[ext_resource type="Script" path="res://scenes/HitPoints.gd" id="10_lnlax"]
 [ext_resource type="AudioStream" uid="uid://ch4u36w8i6cmm" path="res://sounds/drum.wav" id="10_p0n5f"]
 [ext_resource type="Texture2D" uid="uid://bom18uiyfqaos" path="res://2d_assets/background.PNG" id="11_qybty"]
 [ext_resource type="PackedScene" uid="uid://csf7hwl2xupvk" path="res://scenes/main_character.tscn" id="12_56j7o"]
@@ -15,14 +16,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
-
-[sub_resource type="LabelSettings" id="LabelSettings_a01gc"]
-font_size = 100
-font_color = Color(1, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_6o673"]
-font_size = 100
-font_color = Color(0, 1, 0, 1)
 
 [node name="main_scene" type="Node2D"]
 script = ExtResource("1_360tj")
@@ -36,40 +29,30 @@ script = ExtResource("8_k2htu")
 [node name="StartTimer" type="Timer" parent="Conductor"]
 
 [node name="Controller" type="Node2D" parent="."]
-script = ExtResource("7_fomf7")
-
-[node name="Queue" type="Node2D" parent="."]
 z_index = 1
 position = Vector2(-225, 70)
 script = ExtResource("4_oeoi5")
 
-[node name="Hitbox" type="Area2D" parent="Queue"]
+[node name="Hitbox" type="Area2D" parent="Controller"]
 script = ExtResource("5_ouxpd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Queue/Hitbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Controller/Hitbox"]
 shape = SubResource("RectangleShape2D_n647k")
 
-[node name="Note" parent="Queue" instance=ExtResource("3_v4aav")]
+[node name="Sprite2D" type="Sprite2D" parent="Controller/Hitbox"]
+position = Vector2(4, 4)
+scale = Vector2(0.30651, 0.325853)
+texture = ExtResource("8_1kh3p")
+
+[node name="Note" parent="Controller" instance=ExtResource("3_v4aav")]
 position = Vector2(-90, -351)
 
-[node name="Drum" type="AudioStreamPlayer" parent="Queue"]
+[node name="Drum" type="AudioStreamPlayer" parent="Controller"]
 stream = ExtResource("10_p0n5f")
 
-[node name="FailureLabel" type="Label" parent="Queue"]
-offset_left = 1794.0
-offset_top = 19.0
-offset_right = 1871.0
-offset_bottom = 156.0
-text = "0"
-label_settings = SubResource("LabelSettings_a01gc")
-
-[node name="SuccessLabel" type="Label" parent="Queue"]
-offset_left = 1941.0
-offset_top = 19.0
-offset_right = 1998.0
-offset_bottom = 156.0
-text = "0"
-label_settings = SubResource("LabelSettings_6o673")
+[node name="HitPoints" type="Node2D" parent="Controller"]
+position = Vector2(1800, 50)
+script = ExtResource("10_lnlax")
 
 [node name="background" type="Sprite2D" parent="."]
 texture = ExtResource("11_qybty")
@@ -80,5 +63,6 @@ centered = false
 [node name="main_character" parent="." instance=ExtResource("12_56j7o")]
 position = Vector2(978, 703)
 
-[connection signal="beat" from="Conductor" to="Queue" method="_on_conductor_beat"]
-[connection signal="body_entered" from="Queue/Hitbox" to="Queue/Note" method="_on_hitbox_body_entered"]
+[connection signal="beat" from="Conductor" to="Controller" method="_on_conductor_beat"]
+[connection signal="body_entered" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_exited"]

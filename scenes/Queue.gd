@@ -8,13 +8,13 @@ REST, DRUM, REST, DRUM, REST, DRUM, DRUM,
 DRUM, REST, DRUM, REST, DRUM, REST, DRUM,
 REST, REST]
 
-var note_scene = load("res://Scenes/Note.tscn")
 var hit_effect = load("res://scenes/success_effect.tscn")
+var note_scene = load("res://Scenes/Note.tscn")
 
 const QUEUE_LENGTH = 8
 const QUEUE_X_OFFSET_PX = 200
 
-var current_note = REST
+var current_note = null
 
 var notes = Array()
 
@@ -49,19 +49,19 @@ func move_queue():
 	if test_level.size() > 0:
 		notes.append(create_note(test_level.pop_front()))
 	update_queue_positions()
+	
+func lose_hp():
+	$HitPoints.lose_hp()
 
 func validate_input(action):
-	if action == current_note:
-		success += 1
-		$SuccessLabel.text = str(success)
-		
-		#effect; this needs proper position
+	if current_note and action == current_note.type:
 		var hit_effect = hit_effect.instantiate()
-		add_child(hit_effect)
-		hit_effect.position = Vector2(960, 100)
+		current_note.add_child(hit_effect)
+		current_note.fading=true
+		current_note.note_hit=true
+		current_note = null
 	else:
-		failures += 1
-		$FailureLabel.text = str(failures)
+		lose_hp()
 
 func _process(delta):
 	if Input.is_action_just_pressed("KEY_CAKE"):
@@ -75,11 +75,9 @@ func _process(delta):
 		validate_input(FROG)
 
 
-
 func _on_conductor_beat(position):
 	if position == 0:
 		move_queue()
 
-func set_current_note(type):
-	current_note = type
-	print(current_note)
+func set_current_note(note):
+	current_note = note
