@@ -3,9 +3,15 @@ extends Node2D
 enum {CAKE, DRUM, FROG, SOCK, REST}
 var type
 
+var target_position
+const SPEED = 800
+
+signal entered(type)
+signal exited(type)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	print(type)
+	target_position = position
 	match type:
 		CAKE:
 			$action.frame = 0
@@ -24,7 +30,9 @@ func _ready():
 			$key.visible = false
 
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	position = position.move_toward(target_position, delta * SPEED)
+
+func _on_hitbox_body_entered(body):
+	get_parent().set_current_note(body.type)
