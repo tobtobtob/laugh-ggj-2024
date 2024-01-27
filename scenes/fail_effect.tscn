@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://bqp8xqrim1fbx"]
+
+[node name="fail_effect" type="Node2D"]
