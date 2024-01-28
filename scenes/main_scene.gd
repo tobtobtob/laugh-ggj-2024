@@ -37,13 +37,13 @@ var levels = [
 const LEVEL_CHANGE_TIME = 3
 
 var running = true
+var init_screen = true
 
 var current_level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$LevelChangeTimer.one_shot = true
-	$LevelChangeTimer.start(LEVEL_CHANGE_TIME)
+	pass
 
 func game_won():
 	running = false
@@ -98,8 +98,9 @@ func trigger_effect(type):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
-
+	if init_screen and Input.is_action_just_pressed("KEY_DRUM"):
+		init_screen = false
+		start_level()
 
 func _on_level_change_timer_timeout():
 	start_level()

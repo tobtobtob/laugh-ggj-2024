@@ -5,7 +5,7 @@ enum {CAKE, DRUM, FROG, SOCK, REST, EMPTY}
 var level
 
 var hit_effect = load("res://scenes/success_effect.tscn")
-var note_scene = load("res://scenes/Note.tscn")
+var note_scene = load("res://scenes/note.tscn")
 
 const QUEUE_LENGTH = 8
 const QUEUE_X_OFFSET_PX = 200
@@ -49,8 +49,6 @@ func update_queue_positions():
 func move_queue():
 	var destroy_node = notes.pop_front()
 	remove_child(destroy_node)
-	print(level.size())
-	print(notes.size())
 	if level.size() > 0:
 		notes.append(create_note(level.pop_front()))
 	if notes.size() == 0:
