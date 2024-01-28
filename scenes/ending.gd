@@ -44,3 +44,4 @@ func _on_you_timer_timeout():
 #credits
 func _on_credits_timer_timeout():
 	reveal_credits()
+	get_parent().start_final_theme()

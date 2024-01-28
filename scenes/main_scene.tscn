@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=57 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
@@ -19,9 +19,15 @@
 [ext_resource type="Script" path="res://scenes/Camera2D_controller.gd" id="16_l2k7v"]
 [ext_resource type="Texture2D" uid="uid://c1ap6r7puoay1" path="res://2d_assets/press.png" id="17_wobx4"]
 [ext_resource type="Script" path="res://scenes/tutorial_controller.gd" id="17_xkyt2"]
+[ext_resource type="AudioStream" uid="uid://b4ldq8y1fcpkp" path="res://sounds/sock.wav" id="17_ytgmh"]
+[ext_resource type="AudioStream" uid="uid://yarw5tlxmups" path="res://sounds/naurutaputus.wav" id="18_8xvct"]
 [ext_resource type="Texture2D" uid="uid://dcos4pm5lmit2" path="res://2d_assets/beat_icon_drum.png" id="18_au8vw"]
+[ext_resource type="AudioStream" uid="uid://cvi5d1j7lwpkr" path="res://sounds/final_theme.wav" id="19_251bp"]
 [ext_resource type="Texture2D" uid="uid://wklu20mtih27" path="res://2d_assets/beat_control_cake.png" id="19_jttmg"]
+[ext_resource type="AudioStream" uid="uid://deoh3o8pu6vlw" path="res://sounds/balloons_pop.wav" id="19_x1l7v"]
 [ext_resource type="Texture2D" uid="uid://cfn0sug1tioik" path="res://2d_assets/black_screen_hole.png" id="21_eqvij"]
+[ext_resource type="AudioStream" uid="uid://dvgksipab6e8x" path="res://sounds/howl.wav" id="21_nfaba"]
+[ext_resource type="AudioStream" uid="uid://bo71fdk27n0nf" path="res://sounds/murinaa.wav" id="22_8jm8s"]
 [ext_resource type="Script" path="res://scenes/ending.gd" id="22_hj6sj"]
 [ext_resource type="Texture2D" uid="uid://bqce7cb2eb7al" path="res://2d_assets/logo/logo_jokes.png" id="23_okwnx"]
 [ext_resource type="Texture2D" uid="uid://0fj1sr4fc646" path="res://2d_assets/logo/logo_on.png" id="24_1iuas"]
@@ -30,8 +36,6 @@
 [ext_resource type="Texture2D" uid="uid://e5hl8waapqlw" path="res://2d_assets/logo/credits_tia.png" id="27_704hq"]
 [ext_resource type="Texture2D" uid="uid://b8f32kwo04svk" path="res://2d_assets/logo/credits_topi.png" id="28_wka4v"]
 [ext_resource type="Texture2D" uid="uid://bbsr3arxylcy2" path="res://2d_assets/logo/credits_ggj.png" id="29_m0h3c"]
-[ext_resource type="AudioStream" uid="uid://b4ldq8y1fcpkp" path="res://sounds/sock.wav" id="17_ytgmh"]
-[ext_resource type="AudioStream" uid="uid://yarw5tlxmups" path="res://sounds/naurutaputus.wav" id="18_8xvct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
@@ -401,6 +405,18 @@ stream = ExtResource("17_ytgmh")
 
 [node name="Laugh" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = ExtResource("18_8xvct")
+
+[node name="FinalTheme" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("19_251bp")
+
+[node name="BalloonsPop" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("19_x1l7v")
+
+[node name="Howl" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("21_nfaba")
+
+[node name="Murina" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("22_8jm8s")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 479)

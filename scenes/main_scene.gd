@@ -98,6 +98,7 @@ func game_won():
 func game_over():
 	running = false
 	print('game over')
+	$SoundEffects.play_murina()
 	$Conductor.stop()
 	$audience_scene.set_audience_to_attack()
 	$Camera2D.zoom_in()
@@ -135,12 +136,17 @@ func start_level():
 func start_ending():
 	$audience_scene.set_audience_to_howling(12.0)
 	$Camera2D.start_end_zoom()
-	end_character_timer.start(10.0)
+	$SoundEffects.play_howl()
+	end_character_timer.start(12.0)
 
 #ending timer
 func _on_end_timer_character_mark_timeout():
+	$SoundEffects.play_balloons_pop()
 	$main_character.anim_end()
 	$ending.start_logo_reveal()
+
+func start_final_theme():
+	$SoundEffects.play_final_theme()
 
 func trigger_effect(type):
 	match type:
