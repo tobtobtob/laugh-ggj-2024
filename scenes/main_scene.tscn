@@ -1,9 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=57 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
 [ext_resource type="AudioStream" uid="uid://djdhb5i85jt1r" path="res://sounds/first_theme.wav" id="3_ikp7g"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="Texture2D" uid="uid://dglavfb3x1wha" path="res://2d_assets/target.png" id="7_htaql"]
@@ -19,9 +19,15 @@
 [ext_resource type="Script" path="res://scenes/Camera2D_controller.gd" id="16_l2k7v"]
 [ext_resource type="Texture2D" uid="uid://c1ap6r7puoay1" path="res://2d_assets/press.png" id="17_wobx4"]
 [ext_resource type="Script" path="res://scenes/tutorial_controller.gd" id="17_xkyt2"]
+[ext_resource type="AudioStream" uid="uid://b4ldq8y1fcpkp" path="res://sounds/sock.wav" id="17_ytgmh"]
+[ext_resource type="AudioStream" uid="uid://yarw5tlxmups" path="res://sounds/naurutaputus.wav" id="18_8xvct"]
 [ext_resource type="Texture2D" uid="uid://dcos4pm5lmit2" path="res://2d_assets/beat_icon_drum.png" id="18_au8vw"]
+[ext_resource type="AudioStream" uid="uid://cvi5d1j7lwpkr" path="res://sounds/final_theme.wav" id="19_251bp"]
 [ext_resource type="Texture2D" uid="uid://wklu20mtih27" path="res://2d_assets/beat_control_cake.png" id="19_jttmg"]
+[ext_resource type="AudioStream" uid="uid://deoh3o8pu6vlw" path="res://sounds/balloons_pop.wav" id="19_x1l7v"]
 [ext_resource type="Texture2D" uid="uid://cfn0sug1tioik" path="res://2d_assets/black_screen_hole.png" id="21_eqvij"]
+[ext_resource type="AudioStream" uid="uid://dvgksipab6e8x" path="res://sounds/howl.wav" id="21_nfaba"]
+[ext_resource type="AudioStream" uid="uid://bo71fdk27n0nf" path="res://sounds/murinaa.wav" id="22_8jm8s"]
 [ext_resource type="Script" path="res://scenes/ending.gd" id="22_hj6sj"]
 [ext_resource type="Texture2D" uid="uid://bqce7cb2eb7al" path="res://2d_assets/logo/logo_jokes.png" id="23_okwnx"]
 [ext_resource type="Texture2D" uid="uid://0fj1sr4fc646" path="res://2d_assets/logo/logo_on.png" id="24_1iuas"]
@@ -30,8 +36,6 @@
 [ext_resource type="Texture2D" uid="uid://e5hl8waapqlw" path="res://2d_assets/logo/credits_tia.png" id="27_704hq"]
 [ext_resource type="Texture2D" uid="uid://b8f32kwo04svk" path="res://2d_assets/logo/credits_topi.png" id="28_wka4v"]
 [ext_resource type="Texture2D" uid="uid://bbsr3arxylcy2" path="res://2d_assets/logo/credits_ggj.png" id="29_m0h3c"]
-[ext_resource type="AudioStream" uid="uid://b4ldq8y1fcpkp" path="res://sounds/sock.wav" id="17_ytgmh"]
-[ext_resource type="AudioStream" uid="uid://yarw5tlxmups" path="res://sounds/naurutaputus.wav" id="18_8xvct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
@@ -63,6 +67,58 @@ tracks/1/keys = {
 "values": [Vector2(-120, -50)]
 }
 
+[sub_resource type="Animation" id="Animation_fxm2n"]
+resource_name = "ending_zoom"
+length = 7.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(960, 540), Vector2(983, 481)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(5, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorial/hole:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2, 2.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(4, 4), Vector2(0.06, 0.06)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorial/hole:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2, 2.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1862, 300), Vector2(-1862, 300), Vector2(3.99999, -53)]
+}
+
 [sub_resource type="Animation" id="Animation_ksow7"]
 resource_name = "game"
 loop_mode = 1
@@ -89,34 +145,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(960, 540)]
-}
-
-[sub_resource type="Animation" id="Animation_gn7ao"]
-resource_name = "zoom_to_face"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2, 3, 3.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(960, 540), Vector2(960, 540), Vector2(981, 479)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera2D:zoom")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2, 3, 3.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_y0kvt"]
@@ -222,9 +250,9 @@ tracks/3/keys = {
 "values": [Vector2(-120, -50), Vector2(-1862, 310)]
 }
 
-[sub_resource type="Animation" id="Animation_fxm2n"]
-resource_name = "ending_zoom"
-length = 7.0
+[sub_resource type="Animation" id="Animation_gn7ao"]
+resource_name = "zoom_to_face"
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -232,10 +260,10 @@ tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(2, 7),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(2, 3, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(960, 540), Vector2(983, 481)]
+"values": [Vector2(960, 540), Vector2(960, 540), Vector2(981, 479)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -244,34 +272,10 @@ tracks/1/path = NodePath("Camera2D:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2, 7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(5, 5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("tutorial/hole:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2, 2.5, 7),
+"times": PackedFloat32Array(2, 3, 3.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 4), Vector2(4, 4), Vector2(0.06, 0.06)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("tutorial/hole:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2, 2.5, 7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-1862, 300), Vector2(-1862, 300), Vector2(3.99999, -53)]
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hwrgw"]
@@ -401,6 +405,18 @@ stream = ExtResource("17_ytgmh")
 
 [node name="Laugh" type="AudioStreamPlayer2D" parent="SoundEffects"]
 stream = ExtResource("18_8xvct")
+
+[node name="FinalTheme" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("19_251bp")
+
+[node name="BalloonsPop" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("19_x1l7v")
+
+[node name="Howl" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("21_nfaba")
+
+[node name="Murina" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("22_8jm8s")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 479)

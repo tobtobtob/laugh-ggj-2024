@@ -34,3 +34,4 @@ func _on_on_timer_timeout():
 #you
 func _on_you_timer_timeout():
 	reveal_you()
+	get_parent().start_final_theme()
