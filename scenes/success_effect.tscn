@@ -3,6 +3,21 @@
 [ext_resource type="Script" path="res://scenes/success_effect.gd" id="1_lsnbj"]
 [ext_resource type="Texture2D" uid="uid://cbnvkiwoeed8p" path="res://2d_assets/hit_effect.png" id="1_q5q1x"]
 
+[sub_resource type="Animation" id="Animation_ixnbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13.1429, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_pgwsv"]
 resource_name = "hit_effect"
 length = 0.4
@@ -41,21 +56,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(4.286, 0), Vector2(7.85714, -6.14286), Vector2(6.71429, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_ixnbk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(13.1429, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5y4ik"]
