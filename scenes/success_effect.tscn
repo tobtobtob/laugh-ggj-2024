@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch8dlxnj8rb54"]
+[gd_scene load_steps=6 format=3 uid="uid://ch8dlxnj8rb54"]
 
 [ext_resource type="Script" path="res://scenes/success_effect.gd" id="1_lsnbj"]
 [ext_resource type="Texture2D" uid="uid://cbnvkiwoeed8p" path="res://2d_assets/hit_effect.png" id="1_q5q1x"]
@@ -30,9 +30,37 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0.1, 0.1), Vector2(1, 1), Vector2(1, 1), Vector2(1.2, 1.2)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4.286, 0), Vector2(7.85714, -6.14286), Vector2(6.71429, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ixnbk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13.1429, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5y4ik"]
 _data = {
+"RESET": SubResource("Animation_ixnbk"),
 "hit_effect": SubResource("Animation_pgwsv")
 }
 
@@ -42,9 +70,10 @@ script = ExtResource("1_lsnbj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 3
-scale = Vector2(0.1, 0.1)
+position = Vector2(13.1429, 0)
 texture = ExtResource("1_q5q1x")
 hframes = 2
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

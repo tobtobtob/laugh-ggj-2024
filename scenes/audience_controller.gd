@@ -34,6 +34,14 @@ func set_audience_to_laughing(duration):
 	laughing = true
 	
 	timer.start(duration)
+	
+func set_audience_to_howling(duration):
+	for character in audience:
+		character.state = "howl"
+	
+	laughing = true
+	
+	timer.start(duration)
 		
 func set_audience_to_idle():
 	for character in audience:

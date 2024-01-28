@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dwbjkhosh5vgc"]
+[gd_scene load_steps=22 format=3 uid="uid://dwbjkhosh5vgc"]
 
 [ext_resource type="Script" path="res://scenes/audience_character.gd" id="1_4mxxf"]
 [ext_resource type="Texture2D" uid="uid://c7kuqanibwfpt" path="res://2d_assets/audience_files/audience_wolf_2.PNG" id="1_7ivts"]
@@ -56,6 +56,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_aekkm"]
 resource_name = "attack"
+length = 2.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -63,7 +64,7 @@ tracks/0/path = NodePath("Sprite2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
+"times": PackedFloat32Array(1, 1.3, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-136, 523), Vector2(-231, 260), Vector2(-231, 260)]
@@ -75,7 +76,7 @@ tracks/1/path = NodePath("Sprite2D:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
+"times": PackedFloat32Array(1, 1.3, 2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [-2.52429, -0.364785, -0.364785]
@@ -87,7 +88,7 @@ tracks/2/path = NodePath("Sprite2D:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
+"times": PackedFloat32Array(1, 1.3, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0.15, 0.15), Vector2(0.15, 0.2), Vector2(0.15, 0.15)]
@@ -99,7 +100,7 @@ tracks/3/path = NodePath("AnimatedSprite2D:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 0)]
@@ -111,7 +112,7 @@ tracks/4/path = NodePath("AnimatedSprite2D:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.15, 0.15)]
@@ -123,7 +124,7 @@ tracks/5/path = NodePath("AnimatedSprite2D:rotation")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
@@ -235,16 +236,73 @@ tracks/3/keys = {
 "values": [Vector2(-276, 922)]
 }
 
+[sub_resource type="Animation" id="Animation_fi657"]
+resource_name = "howl"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -50), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.15, 0.15), Vector2(0.15, 0.2), Vector2(0.15, 0.15)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.0174533, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-276, 922)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ig61n"]
 _data = {
 "RESET": SubResource("Animation_m4nij"),
 "attack": SubResource("Animation_aekkm"),
+"howl": SubResource("Animation_fi657"),
 "idle": SubResource("Animation_4tmn3"),
 "laugh": SubResource("Animation_88hpj")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i6b86"]
 animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dlq25"]
+animation = &"howl"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_sylmq"]
 animation = &"idle"
@@ -271,15 +329,27 @@ switch_mode = 1
 advance_mode = 2
 advance_condition = &"attack"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2xfig"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"howl"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eugr7"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"idle"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3njif"]
 states/attack/node = SubResource("AnimationNodeAnimation_i6b86")
 states/attack/position = Vector2(638, 100)
+states/howl/node = SubResource("AnimationNodeAnimation_dlq25")
+states/howl/position = Vector2(492, -64)
 states/idle/node = SubResource("AnimationNodeAnimation_sylmq")
 states/idle/position = Vector2(475, 56)
 states/laugh/node = SubResource("AnimationNodeAnimation_pamkm")
 states/laugh/position = Vector2(449, 151)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rordc"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_0ikyy"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_rdsun"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_aeg8g")]
-graph_offset = Vector2(-12, 1)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_rordc"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_0ikyy"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_rdsun"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_aeg8g"), "idle", "howl", SubResource("AnimationNodeStateMachineTransition_2xfig"), "howl", "idle", SubResource("AnimationNodeStateMachineTransition_eugr7")]
+graph_offset = Vector2(-192, -348)
 
 [node name="audience_wolf_2" type="Node2D"]
 script = ExtResource("1_4mxxf")
@@ -301,6 +371,7 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_3njif")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attack = false
+parameters/conditions/howl = false
 parameters/conditions/idle = false
 parameters/conditions/laugh = false
 

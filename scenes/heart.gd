@@ -1,16 +1,15 @@
 extends Node2D
 
+@onready var animation_tree = $sprite/AnimationTree
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$sprite.frame = 0
+	animation_tree.active = true
 
 func break_heart():
-	$sprite.frame = 1
+	animation_tree["parameters/conditions/alive"] = false
+	animation_tree["parameters/conditions/break"] = true
 
 func refresh_heart():
-	$sprite.frame = 0
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	animation_tree["parameters/conditions/alive"] = true
+	animation_tree["parameters/conditions/break"] = false

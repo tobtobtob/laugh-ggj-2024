@@ -22,7 +22,6 @@ func _ready():
 	pass
 
 func init_level():
-	$HitPoints.reset_hp()
 	for n in QUEUE_LENGTH:
 		var note = create_note(level.pop_front())
 		note.position = position

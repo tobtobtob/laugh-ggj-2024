@@ -1,9 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=28 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
 [ext_resource type="AudioStream" uid="uid://djdhb5i85jt1r" path="res://sounds/first_theme.wav" id="3_ikp7g"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="Texture2D" uid="uid://dglavfb3x1wha" path="res://2d_assets/target.png" id="7_htaql"]
@@ -15,9 +15,114 @@
 [ext_resource type="PackedScene" uid="uid://clctwunmua37r" path="res://scenes/fade_to_black.tscn" id="12_775nf"]
 [ext_resource type="Script" path="res://scenes/SoundEffects.gd" id="13_c2dnf"]
 [ext_resource type="AudioStream" uid="uid://c4t7meh4fjsji" path="res://sounds/frog.wav" id="14_oem5j"]
+[ext_resource type="Script" path="res://scenes/Camera2D_controller.gd" id="16_l2k7v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
+
+[sub_resource type="Animation" id="Animation_ksow7"]
+resource_name = "game"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 540)]
+}
+
+[sub_resource type="Animation" id="Animation_gn7ao"]
+resource_name = "zoom_to_face"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2, 3, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(960, 540), Vector2(960, 540), Vector2(981, 479)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2, 3, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_rskvc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(960, 479)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hwrgw"]
+_data = {
+"RESET": SubResource("Animation_rskvc"),
+"game": SubResource("Animation_ksow7"),
+"zoom_to_face": SubResource("Animation_gn7ao")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0kpq6"]
+animation = &"game"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_itcel"]
+animation = &"zoom_to_face"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_v2kyo"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f8kwd"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"zoom_in"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_l82qb"]
+advance_mode = 2
+advance_condition = &"game_camera"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5nwjc"]
+states/game/node = SubResource("AnimationNodeAnimation_0kpq6")
+states/game/position = Vector2(488, 36)
+states/zoom_to_face/node = SubResource("AnimationNodeAnimation_itcel")
+states/zoom_to_face/position = Vector2(526, 141)
+transitions = ["Start", "game", SubResource("AnimationNodeStateMachineTransition_v2kyo"), "game", "zoom_to_face", SubResource("AnimationNodeStateMachineTransition_f8kwd"), "zoom_to_face", "game", SubResource("AnimationNodeStateMachineTransition_l82qb")]
+graph_offset = Vector2(-24, -15)
 
 [node name="main_scene" type="Node2D"]
 script = ExtResource("1_360tj")
@@ -49,7 +154,7 @@ texture = ExtResource("7_htaql")
 position = Vector2(-90, -351)
 
 [node name="HitPoints" type="Node2D" parent="Controller"]
-position = Vector2(1800, 50)
+position = Vector2(1149, -26)
 script = ExtResource("10_lnlax")
 
 [node name="background" type="Sprite2D" parent="."]
@@ -57,7 +162,6 @@ texture = ExtResource("11_qybty")
 centered = false
 
 [node name="fade_to_black" parent="." instance=ExtResource("12_775nf")]
-visible = false
 
 [node name="main_character" parent="." instance=ExtResource("12_56j7o")]
 position = Vector2(978, 703)
@@ -73,7 +177,33 @@ stream = ExtResource("14_oem5j")
 [node name="Drum" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("10_p0n5f")
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 479)
+zoom = Vector2(2, 2)
+script = ExtResource("16_l2k7v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_hwrgw")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Camera2D"]
+active = false
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_hwrgw")
+}
+tree_root = SubResource("AnimationNodeStateMachine_5nwjc")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/game_camera = false
+parameters/conditions/zoom_in = false
+
+[node name="game_over_timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="beat" from="Conductor" to="Controller" method="_on_conductor_beat"]
 [connection signal="body_entered" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_entered"]
 [connection signal="body_exited" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_exited"]
 [connection signal="timeout" from="LevelChangeTimer" to="." method="_on_level_change_timer_timeout"]
+[connection signal="timeout" from="game_over_timer" to="." method="_on_game_over_timer_timeout"]

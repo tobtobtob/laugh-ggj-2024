@@ -53,6 +53,8 @@ func game_over():
 	print('game over')
 	$Conductor.stop()
 	$audience_scene.set_audience_to_attack()
+	$Camera2D.zoom_in()
+	$game_over_timer.start(7.0)
 
 func level_completed():
 	running = false
@@ -63,6 +65,7 @@ func level_completed():
 		game_won()
 		return
 	$audience_scene.set_audience_to_laughing(LEVEL_CHANGE_TIME)
+	$Controller/HitPoints.reset_hp()
 	$LevelChangeTimer.one_shot = true
 	$LevelChangeTimer.start(LEVEL_CHANGE_TIME)
 
@@ -99,3 +102,7 @@ func _process(delta):
 
 func _on_level_change_timer_timeout():
 	start_level()
+
+#reload level after dying
+func _on_game_over_timer_timeout():
+	get_tree().reload_current_scene()

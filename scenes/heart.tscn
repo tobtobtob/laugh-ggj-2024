@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvh82rvu5qvlr"]
+[gd_scene load_steps=14 format=3 uid="uid://bvh82rvu5qvlr"]
 
 [ext_resource type="Texture2D" uid="uid://cj65yl50iyhl4" path="res://2d_assets/heart.png" id="1_0wroc"]
 [ext_resource type="Script" path="res://scenes/heart.gd" id="1_ye2sr"]
@@ -18,9 +18,161 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_bajkr"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.61, 0.61), Vector2(0.61, 0.61), Vector2(0.6, 0.6)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0174533, -0.0174533, 0.0174533]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_iw08j"]
+resource_name = "break"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0.6, 0.6), Vector2(0.4, 0.7), Vector2(0.7, 0.4), Vector2(0.59, 0.59)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.0, 0.261799, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u27j4"]
+_data = {
+"break": SubResource("Animation_iw08j"),
+"idle": SubResource("Animation_bajkr")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tp6kt"]
+animation = &"break"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_esqro"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0fc6i"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_86esc"]
+switch_mode = 1
+advance_mode = 2
+advance_condition = &"break"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_53vrd"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"alive"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_v0obt"]
+states/break/node = SubResource("AnimationNodeAnimation_tp6kt")
+states/break/position = Vector2(477, 59)
+states/idle/node = SubResource("AnimationNodeAnimation_esqro")
+states/idle/position = Vector2(477, 189)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0fc6i"), "idle", "break", SubResource("AnimationNodeStateMachineTransition_86esc"), "break", "idle", SubResource("AnimationNodeStateMachineTransition_53vrd")]
+
 [node name="Heart" type="Node2D"]
 scale = Vector2(0.15, 0.15)
 script = ExtResource("1_ye2sr")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
 sprite_frames = SubResource("SpriteFrames_7nlbl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_u27j4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="sprite"]
+active = false
+libraries = {
+"": SubResource("AnimationLibrary_u27j4")
+}
+tree_root = SubResource("AnimationNodeStateMachine_v0obt")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/alive = false
+parameters/conditions/break = false

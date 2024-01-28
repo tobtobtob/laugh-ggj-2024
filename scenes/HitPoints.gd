@@ -3,7 +3,7 @@ extends Node2D
 var Heart = load("res://scenes/heart.tscn")
 
 const START_HP = 3
-const HEART_X_OFFSET_PX = 100
+const HEART_X_OFFSET_PX = 50
 
 var current_hp = START_HP
 var hearts = Array()

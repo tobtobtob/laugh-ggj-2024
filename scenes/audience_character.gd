@@ -14,10 +14,18 @@ func update_animation_state():
 	if state == "idle":
 		animation_tree["parameters/conditions/idle"] = true
 		animation_tree["parameters/conditions/laugh"] = false
+		animation_tree["parameters/conditions/howl"] = false
 	elif state == "laugh":
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/laugh"] = true
+		animation_tree["parameters/conditions/howl"] = false
 	elif state == "attack":
 		animation_tree["parameters/conditions/attack"] = true
 		animation_tree["parameters/conditions/idle"] = false
 		animation_tree["parameters/conditions/laugh"] = false
+		animation_tree["parameters/conditions/howl"] = false
+	elif state == "howl":
+		animation_tree["parameters/conditions/attack"] = false
+		animation_tree["parameters/conditions/idle"] = false
+		animation_tree["parameters/conditions/laugh"] = false
+		animation_tree["parameters/conditions/howl"] = true
