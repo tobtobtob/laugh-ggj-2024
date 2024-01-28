@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://csf7hwl2xupvk"]
+[gd_scene load_steps=38 format=3 uid="uid://csf7hwl2xupvk"]
 
 [ext_resource type="Script" path="res://scenes/main_character_controller.gd" id="1_0qoh1"]
 [ext_resource type="Texture2D" uid="uid://ry6o7epm4fl4" path="res://2d_assets/main_character/main.PNG" id="1_yurkh"]
 [ext_resource type="Texture2D" uid="uid://dd8row227yp0p" path="res://2d_assets/main_character/main_right_hand.png" id="2_r23wu"]
+[ext_resource type="Texture2D" uid="uid://bjl5udxi0bs3d" path="res://2d_assets/main_character/main_end.PNG" id="3_rqvo3"]
 [ext_resource type="Texture2D" uid="uid://ch02nv7v8juwk" path="res://2d_assets/main_character/main_arm_left.PNG" id="3_y28qy"]
 [ext_resource type="Texture2D" uid="uid://bb2hpv1vi7hal" path="res://2d_assets/main_character/main_foot_right.png" id="4_gg6rt"]
 [ext_resource type="Texture2D" uid="uid://cprvx8siu3g70" path="res://2d_assets/main_character/main_foot_left.PNG" id="5_gjah7"]
@@ -16,6 +17,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_yurkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rqvo3")
 }],
 "loop": true,
 "name": &"default",
@@ -311,6 +315,18 @@ tracks/23/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.2, 0.2)]
+}
+tracks/24/type = "value"
+tracks/24/imported = false
+tracks/24/enabled = true
+tracks/24/path = NodePath("AnimatedSprite2D:frame")
+tracks/24/interp = 1
+tracks/24/loop_wrap = true
+tracks/24/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_reh7t"]
@@ -909,11 +925,27 @@ tracks/5/keys = {
 "values": [Vector2(0.2, 0.2), Vector2(0.2, 0.25), Vector2(0.2, 0.2)]
 }
 
+[sub_resource type="Animation" id="Animation_d3thl"]
+resource_name = "end"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qmtn0"]
 _data = {
 "RESET": SubResource("Animation_a7ui3"),
 "cake": SubResource("Animation_reh7t"),
 "drum": SubResource("Animation_fyi7k"),
+"end": SubResource("Animation_d3thl"),
 "frog": SubResource("Animation_wp7cn"),
 "idle": SubResource("Animation_3ug1v"),
 "sock": SubResource("Animation_dl50y")
@@ -924,6 +956,9 @@ animation = &"cake"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ii7v8"]
 animation = &"drum"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xvejt"]
+animation = &"end"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cdx66"]
 animation = &"frog"
@@ -974,19 +1009,25 @@ advance_mode = 2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_a07bd"]
+advance_mode = 2
+advance_condition = &"end"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hxv0n"]
 states/cake/node = SubResource("AnimationNodeAnimation_yefns")
 states/cake/position = Vector2(343, -22)
 states/drum/node = SubResource("AnimationNodeAnimation_ii7v8")
 states/drum/position = Vector2(371, 221)
+states/end/node = SubResource("AnimationNodeAnimation_xvejt")
+states/end/position = Vector2(722, 86)
 states/frog/node = SubResource("AnimationNodeAnimation_cdx66")
 states/frog/position = Vector2(542, 221)
 states/idle/node = SubResource("AnimationNodeAnimation_eye7x")
 states/idle/position = Vector2(454, 78)
 states/sock/node = SubResource("AnimationNodeAnimation_4n6fv")
 states/sock/position = Vector2(559, -16)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vgi1x"), "idle", "sock", SubResource("AnimationNodeStateMachineTransition_7cljy"), "idle", "cake", SubResource("AnimationNodeStateMachineTransition_5kcvv"), "idle", "drum", SubResource("AnimationNodeStateMachineTransition_uue86"), "idle", "frog", SubResource("AnimationNodeStateMachineTransition_ii5sd"), "frog", "idle", SubResource("AnimationNodeStateMachineTransition_0ymgt"), "drum", "idle", SubResource("AnimationNodeStateMachineTransition_fdi3x"), "cake", "idle", SubResource("AnimationNodeStateMachineTransition_ifdt6"), "sock", "idle", SubResource("AnimationNodeStateMachineTransition_yw0go")]
-graph_offset = Vector2(-199, -370)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_vgi1x"), "idle", "sock", SubResource("AnimationNodeStateMachineTransition_7cljy"), "idle", "cake", SubResource("AnimationNodeStateMachineTransition_5kcvv"), "idle", "drum", SubResource("AnimationNodeStateMachineTransition_uue86"), "idle", "frog", SubResource("AnimationNodeStateMachineTransition_ii5sd"), "frog", "idle", SubResource("AnimationNodeStateMachineTransition_0ymgt"), "drum", "idle", SubResource("AnimationNodeStateMachineTransition_fdi3x"), "cake", "idle", SubResource("AnimationNodeStateMachineTransition_ifdt6"), "sock", "idle", SubResource("AnimationNodeStateMachineTransition_yw0go"), "idle", "end", SubResource("AnimationNodeStateMachineTransition_a07bd")]
+graph_offset = Vector2(-235, -80)
 
 [node name="main_character" type="Node2D"]
 z_index = 1
@@ -1062,6 +1103,7 @@ tree_root = SubResource("AnimationNodeStateMachine_hxv0n")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/cake = false
 parameters/conditions/drum = false
+parameters/conditions/end = false
 parameters/conditions/frog = false
 parameters/conditions/sock = false
 
