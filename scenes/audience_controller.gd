@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var timer = $Timer
+@onready var end_screen = load("res://scenes/focus_face_effect.tscn")
+@onready var end_timer = $end_timer
 
 @export var audience_state = 0
 var laughing = false
@@ -42,6 +44,8 @@ func set_audience_to_idle():
 func set_audience_to_attack():
 	for character in audience:
 		character.state = "attack"
+		
+	end_timer.start(1.0)
 
 func change_audience_state():
 	pass
@@ -49,3 +53,8 @@ func change_audience_state():
 func _on_timer_timeout():
 	if laughing:
 		set_audience_to_idle()
+
+func _on_end_timer_timeout():
+	var end_screen = end_screen.instantiate()
+	add_child(end_screen)
+	end_screen.position = Vector2(970,500)

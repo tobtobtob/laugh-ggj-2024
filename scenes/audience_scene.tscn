@@ -47,5 +47,10 @@ z_index = 1
 position = Vector2(1486, 591)
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="end_timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="end_timer" to="." method="_on_end_timer_timeout"]
