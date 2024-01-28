@@ -1,9 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=49 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
 [ext_resource type="AudioStream" uid="uid://djdhb5i85jt1r" path="res://sounds/first_theme.wav" id="3_ikp7g"]
-[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/Note.tscn" id="3_v4aav"]
+[ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
 [ext_resource type="Texture2D" uid="uid://dglavfb3x1wha" path="res://2d_assets/target.png" id="7_htaql"]
@@ -63,6 +63,58 @@ tracks/1/keys = {
 "values": [Vector2(-120, -50)]
 }
 
+[sub_resource type="Animation" id="Animation_fxm2n"]
+resource_name = "ending_zoom"
+length = 9.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(4, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(960, 540), Vector2(983, 481)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4, 7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(5, 5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("tutorial/hole:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(4, 4.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(4, 4), Vector2(4, 4), Vector2(0.06, 0.06)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("tutorial/hole:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(4, 4.5, 7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-1862, 300), Vector2(-1862, 300), Vector2(3.99999, -53)]
+}
+
 [sub_resource type="Animation" id="Animation_ksow7"]
 resource_name = "game"
 loop_mode = 1
@@ -89,34 +141,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(960, 540)]
-}
-
-[sub_resource type="Animation" id="Animation_gn7ao"]
-resource_name = "zoom_to_face"
-length = 5.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(2, 3, 3.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(960, 540), Vector2(960, 540), Vector2(981, 479)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Camera2D:zoom")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(2, 3, 3.6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="Animation" id="Animation_y0kvt"]
@@ -222,9 +246,9 @@ tracks/3/keys = {
 "values": [Vector2(-120, -50), Vector2(-1862, 310)]
 }
 
-[sub_resource type="Animation" id="Animation_fxm2n"]
-resource_name = "ending_zoom"
-length = 7.0
+[sub_resource type="Animation" id="Animation_gn7ao"]
+resource_name = "zoom_to_face"
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -232,10 +256,10 @@ tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(2, 7),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(2, 3, 3.6),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(960, 540), Vector2(983, 481)]
+"values": [Vector2(960, 540), Vector2(960, 540), Vector2(981, 479)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -244,34 +268,10 @@ tracks/1/path = NodePath("Camera2D:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(2, 7),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(5, 5)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("tutorial/hole:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(2, 2.5, 7),
+"times": PackedFloat32Array(2, 3, 3.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(4, 4), Vector2(4, 4), Vector2(0.06, 0.06)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("tutorial/hole:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(2, 2.5, 7),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(-1862, 300), Vector2(-1862, 300), Vector2(3.99999, -53)]
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(2, 2)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hwrgw"]
@@ -404,7 +404,6 @@ stream = ExtResource("18_8xvct")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 479)
-zoom = Vector2(5, 5)
 script = ExtResource("16_l2k7v")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D"]
@@ -452,7 +451,7 @@ texture = ExtResource("19_jttmg")
 [node name="hole" type="Sprite2D" parent="tutorial"]
 z_index = 60
 position = Vector2(-120, -50)
-scale = Vector2(0.06, 0.06)
+scale = Vector2(4, 4)
 texture = ExtResource("21_eqvij")
 
 [node name="Timer" type="Timer" parent="tutorial"]
@@ -463,17 +462,17 @@ z_index = 101
 script = ExtResource("22_hj6sj")
 
 [node name="jokes" type="Sprite2D" parent="ending"]
-position = Vector2(984, 423)
+position = Vector2(982.65, 428.2)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("23_okwnx")
 
 [node name="on" type="Sprite2D" parent="ending"]
-position = Vector2(982.775, 449)
+position = Vector2(981.65, 453.2)
 scale = Vector2(0.05, 0.05)
 texture = ExtResource("24_1iuas")
 
 [node name="you" type="Sprite2D" parent="ending"]
-position = Vector2(984.825, 538)
+position = Vector2(984, 503)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("25_syiuq")
 
@@ -486,28 +485,26 @@ one_shot = true
 [node name="you_timer" type="Timer" parent="ending"]
 one_shot = true
 
+[node name="credits_timer" type="Timer" parent="ending"]
+one_shot = true
+
 [node name="credits" type="Node2D" parent="ending"]
-visible = false
+position = Vector2(1, -33)
 
 [node name="arhi" type="Sprite2D" parent="ending/credits"]
-position = Vector2(1308, 737)
-scale = Vector2(0.2, 0.2)
+position = Vector2(1064, 600)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("26_tlvdp")
 
 [node name="tia" type="Sprite2D" parent="ending/credits"]
-position = Vector2(625, 739)
-scale = Vector2(0.2, 0.2)
+position = Vector2(903, 600)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("27_704hq")
 
 [node name="topi" type="Sprite2D" parent="ending/credits"]
-position = Vector2(991, 738)
-scale = Vector2(0.2, 0.2)
+position = Vector2(991, 600)
+scale = Vector2(0.05, 0.05)
 texture = ExtResource("28_wka4v")
-
-[node name="ggj" type="Sprite2D" parent="ending/credits"]
-position = Vector2(981, 861)
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("29_m0h3c")
 
 [node name="end_timer_character_mark" type="Timer" parent="."]
 one_shot = true
@@ -521,4 +518,5 @@ one_shot = true
 [connection signal="timeout" from="ending/jokes_timer" to="ending" method="_on_jokes_timer_timeout"]
 [connection signal="timeout" from="ending/on_timer" to="ending" method="_on_on_timer_timeout"]
 [connection signal="timeout" from="ending/you_timer" to="ending" method="_on_you_timer_timeout"]
+[connection signal="timeout" from="ending/credits_timer" to="ending" method="_on_credits_timer_timeout"]
 [connection signal="timeout" from="end_timer_character_mark" to="." method="_on_end_timer_character_mark_timeout"]
