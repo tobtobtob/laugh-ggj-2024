@@ -13,3 +13,10 @@ func zoom_in():
 func game_camera():
 	animation_tree["parameters/conditions/zoom_in"] = false
 	animation_tree["parameters/conditions/game_camera"] = true
+
+func game_starts():
+	animation_tree["parameters/conditions/game_started"] = true
+
+func start_end_zoom():
+	animation_tree["parameters/conditions/game_started"] = false
+	animation_tree["parameters/conditions/ending"] = true

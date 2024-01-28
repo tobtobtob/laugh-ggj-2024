@@ -7,9 +7,9 @@ var second_theme = load("res://sounds/second_theme.wav")
 
 var first_tempo = 100
 var second_tempo = 120
-const THEME_CHANGE_LEVEL = 8
+const THEME_CHANGE_LEVEL = 9
 
-var current_level = 0
+var current_level = 10
 
 var levels = [
 	#level 0: learn drum
@@ -76,6 +76,9 @@ var levels = [
 	CAKE, REST, REST, REST, CAKE, REST, CAKE, REST,
 	DRUM, CAKE, CAKE, DRUM, REST, DRUM, DRUM, REST,
 	CAKE, REST, REST, REST, CAKE, REST, CAKE, REST],
+	#test_ending
+	[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+	CAKE],
 ]
 
 const LEVEL_CHANGE_TIME = 3
@@ -89,6 +92,7 @@ func _ready():
 
 func game_won():
 	running = false
+	start_ending()
 	print('game won')
 
 func game_over():
@@ -123,7 +127,18 @@ func start_level():
 	elif current_level >= THEME_CHANGE_LEVEL:
 		$Conductor.init(second_theme, 120)
 	$Conductor.play_from_beat(0, 1)
+	
+@onready var end_character_timer = $end_timer_character_mark	
 
+func start_ending():
+	$audience_scene.set_audience_to_howling(12.0)
+	$Camera2D.start_end_zoom()
+	end_character_timer.start(8.0)
+
+#ending timer
+func _on_end_timer_character_mark_timeout():
+	$main_character.anim_end()
+	$ending.start_logo_reveal()
 
 func trigger_effect(type):
 	match type:
@@ -141,6 +156,8 @@ func trigger_effect(type):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if init_screen and Input.is_action_just_pressed("KEY_DRUM"):
+		$Camera2D.game_starts()
+		$tutorial.complete()
 		init_screen = false
 		start_level()
 
