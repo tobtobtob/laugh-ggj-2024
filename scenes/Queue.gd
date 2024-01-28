@@ -1,6 +1,6 @@
 extends Node2D
 
-enum {CAKE, DRUM, FROG, SOCK, REST}
+enum {CAKE, DRUM, FROG, SOCK, REST, EMPTY}
 
 var level
 
@@ -21,7 +21,8 @@ var failures = 0
 func _ready():
 	pass
 
-func init_queue():
+func init_level():
+	$HitPoints.reset_hp()
 	for n in QUEUE_LENGTH:
 		var note = create_note(level.pop_front())
 		note.position = position
@@ -38,6 +39,10 @@ func create_note(type):
 #this sets target positions to make notes move smoothly
 func update_queue_positions():
 	for i in notes.size():
+		# Do not move successful node or rests to right
+		#if (i == 1 and notes[i].is_successful()):
+		#	continue
+		
 		notes[i].target_position = position
 		notes[i].target_position.x = (QUEUE_LENGTH -1 -i) * QUEUE_X_OFFSET_PX
 		
@@ -45,6 +50,8 @@ func update_queue_positions():
 func move_queue():
 	var destroy_node = notes.pop_front()
 	remove_child(destroy_node)
+	print(level.size())
+	print(notes.size())
 	if level.size() > 0:
 		notes.append(create_note(level.pop_front()))
 	if notes.size() == 0:
@@ -61,25 +68,26 @@ func validate_input(action):
 	if current_note and action == current_note.type:
 		var hit_effect = hit_effect.instantiate()
 		current_note.add_child(hit_effect)
-		current_note.fading=true
+		current_note.hide=true
 		current_note.note_hit=true
 		current_note = null
+	elif !current_note or current_note.type == EMPTY:
+		pass
 	else:
 		lose_hp()
 
 func _process(delta):
 	if Input.is_action_just_pressed("KEY_CAKE"):
-		get_parent().trigger_animation(CAKE)
+		get_parent().trigger_effect(CAKE)
 		validate_input(CAKE)
 	elif Input.is_action_just_pressed("KEY_SOCK"):
-		get_parent().trigger_animation(SOCK)
+		get_parent().trigger_effect(SOCK)
 		validate_input(SOCK)
 	elif Input.is_action_just_pressed("KEY_DRUM"):
-		get_parent().trigger_animation(DRUM)
-		$Drum.play()
+		get_parent().trigger_effect(DRUM)
 		validate_input(DRUM)
 	elif Input.is_action_just_pressed("KEY_FROG"):
-		get_parent().trigger_animation(FROG)
+		get_parent().trigger_effect(FROG)
 		validate_input(FROG)
 
 

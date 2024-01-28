@@ -21,7 +21,9 @@ func init_hearts():
 		add_child(new_heart)
 
 func reset_hp():
-	init_hearts()
+	current_hp = START_HP
+	for heart in hearts:
+		heart.refresh_heart()
 
 func get_hp():
 	return current_hp

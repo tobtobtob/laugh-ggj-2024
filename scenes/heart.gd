@@ -8,6 +8,9 @@ func _ready():
 func break_heart():
 	$sprite.frame = 1
 
+func refresh_heart():
+	$sprite.frame = 0
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

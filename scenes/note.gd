@@ -1,13 +1,14 @@
 extends Node2D
 
-enum {CAKE, DRUM, FROG, SOCK, REST}
+enum {CAKE, DRUM, FROG, SOCK, REST, EMPTY}
 var type
 
 var target_position
 const SPEED = 800
 
-const FADE_SPEED = 3
+const FADE_SPEED = 1
 var fading = false
+var hide = false
 
 signal entered(type)
 signal exited(type)
@@ -33,20 +34,33 @@ func _ready():
 		REST:
 			$action.frame = 4
 			$key.visible = false
+		EMPTY:
+			$action.visible = false
+			$key.visible = false
+		
 
 
+func is_successful():
+	return note_hit or type == REST or type == EMPTY
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	position = position.move_toward(target_position, delta * SPEED)
+	if hide:
+		$action.visible = false
+		$key.visible = false
 	if fading:
-		modulate.a = max(0, modulate.a - FADE_SPEED*delta)
+		modulate.a = max(0, modulate.a * delta * FADE_SPEED)
+	position = position.move_toward(target_position, delta * SPEED)
+		
 
 func _on_hitbox_body_entered(body):
 	get_parent().set_current_note(body)
+	if body.type == REST:
+		body.hide = true
 
 
 func _on_hitbox_body_exited(body):
-	if(!body.note_hit and body.type != REST):
+	if !body.is_successful():
 		print(body.note_hit)
 		print(body.type)
 		get_parent().lose_hp()

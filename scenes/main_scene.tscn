@@ -1,17 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=17 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
+[ext_resource type="AudioStream" uid="uid://djdhb5i85jt1r" path="res://sounds/first_theme.wav" id="3_ikp7g"]
 [ext_resource type="PackedScene" uid="uid://ddgrbicc6wra1" path="res://scenes/note.tscn" id="3_v4aav"]
 [ext_resource type="Script" path="res://scenes/Queue.gd" id="4_oeoi5"]
 [ext_resource type="Script" path="res://scenes/Hitbox.gd" id="5_ouxpd"]
-[ext_resource type="AudioStream" uid="uid://bvcw2mfc2v431" path="res://sounds/test_theme_slow.wav" id="5_unwds"]
+[ext_resource type="Texture2D" uid="uid://dglavfb3x1wha" path="res://2d_assets/target.png" id="7_htaql"]
 [ext_resource type="Script" path="res://scenes/Conductor.gd" id="8_k2htu"]
 [ext_resource type="Script" path="res://scenes/HitPoints.gd" id="10_lnlax"]
 [ext_resource type="AudioStream" uid="uid://ch4u36w8i6cmm" path="res://sounds/drum.wav" id="10_p0n5f"]
 [ext_resource type="Texture2D" uid="uid://bom18uiyfqaos" path="res://2d_assets/background.PNG" id="11_qybty"]
 [ext_resource type="PackedScene" uid="uid://csf7hwl2xupvk" path="res://scenes/main_character.tscn" id="12_56j7o"]
 [ext_resource type="PackedScene" uid="uid://clctwunmua37r" path="res://scenes/fade_to_black.tscn" id="12_775nf"]
+[ext_resource type="Script" path="res://scenes/SoundEffects.gd" id="13_c2dnf"]
+[ext_resource type="AudioStream" uid="uid://c4t7meh4fjsji" path="res://sounds/frog.wav" id="14_oem5j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
@@ -22,7 +25,7 @@ script = ExtResource("1_360tj")
 [node name="audience_scene" parent="." instance=ExtResource("1_jkj1t")]
 
 [node name="Conductor" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_unwds")
+stream = ExtResource("3_ikp7g")
 script = ExtResource("8_k2htu")
 
 [node name="StartTimer" type="Timer" parent="Conductor"]
@@ -38,11 +41,12 @@ script = ExtResource("5_ouxpd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Controller/Hitbox"]
 shape = SubResource("RectangleShape2D_n647k")
 
+[node name="Sprite2D" type="Sprite2D" parent="Controller/Hitbox"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_htaql")
+
 [node name="Note" parent="Controller" instance=ExtResource("3_v4aav")]
 position = Vector2(-90, -351)
-
-[node name="Drum" type="AudioStreamPlayer" parent="Controller"]
-stream = ExtResource("10_p0n5f")
 
 [node name="HitPoints" type="Node2D" parent="Controller"]
 position = Vector2(1800, 50)
@@ -59,6 +63,15 @@ visible = false
 position = Vector2(978, 703)
 
 [node name="LevelChangeTimer" type="Timer" parent="."]
+
+[node name="SoundEffects" type="Node" parent="."]
+script = ExtResource("13_c2dnf")
+
+[node name="Frog" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("14_oem5j")
+
+[node name="Drum" type="AudioStreamPlayer" parent="SoundEffects"]
+stream = ExtResource("10_p0n5f")
 
 [connection signal="beat" from="Conductor" to="Controller" method="_on_conductor_beat"]
 [connection signal="body_entered" from="Controller/Hitbox" to="Controller/Note" method="_on_hitbox_body_entered"]
