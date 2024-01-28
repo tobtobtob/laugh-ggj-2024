@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://ogyy8baigju7"]
+[gd_scene load_steps=31 format=3 uid="uid://ogyy8baigju7"]
 
 [ext_resource type="Script" path="res://scenes/main_scene.gd" id="1_360tj"]
 [ext_resource type="PackedScene" uid="uid://ch2tce3apyupm" path="res://scenes/audience_scene.tscn" id="1_jkj1t"]
@@ -15,7 +15,10 @@
 [ext_resource type="PackedScene" uid="uid://clctwunmua37r" path="res://scenes/fade_to_black.tscn" id="12_775nf"]
 [ext_resource type="Script" path="res://scenes/SoundEffects.gd" id="13_c2dnf"]
 [ext_resource type="AudioStream" uid="uid://c4t7meh4fjsji" path="res://sounds/frog.wav" id="14_oem5j"]
+[ext_resource type="AudioStream" uid="uid://c4lwfrxrbvj5q" path="res://sounds/kakku.wav" id="16_eeskf"]
 [ext_resource type="Script" path="res://scenes/Camera2D_controller.gd" id="16_l2k7v"]
+[ext_resource type="AudioStream" uid="uid://b4ldq8y1fcpkp" path="res://sounds/sock.wav" id="17_ytgmh"]
+[ext_resource type="AudioStream" uid="uid://yarw5tlxmups" path="res://sounds/naurutaputus.wav" id="18_8xvct"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n647k"]
 size = Vector2(192, 187)
@@ -176,6 +179,15 @@ stream = ExtResource("14_oem5j")
 
 [node name="Drum" type="AudioStreamPlayer" parent="SoundEffects"]
 stream = ExtResource("10_p0n5f")
+
+[node name="Cake" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("16_eeskf")
+
+[node name="Sock" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("17_ytgmh")
+
+[node name="Laugh" type="AudioStreamPlayer2D" parent="SoundEffects"]
+stream = ExtResource("18_8xvct")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(960, 479)

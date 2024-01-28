@@ -66,6 +66,8 @@ func level_completed():
 		game_won()
 		return
 	$audience_scene.set_audience_to_laughing(LEVEL_CHANGE_TIME)
+	$SoundEffects.play_laugh()
+	
 	$Controller/HitPoints.reset_hp()
 	$LevelChangeTimer.one_shot = true
 	$LevelChangeTimer.start(LEVEL_CHANGE_TIME)
@@ -87,6 +89,7 @@ func trigger_effect(type):
 	match type:
 		CAKE:
 			$main_character.anim_cake()
+			$SoundEffects.play_cake()
 		DRUM:
 			$main_character.anim_drum()
 			$SoundEffects.play_drum()
@@ -95,6 +98,7 @@ func trigger_effect(type):
 			$SoundEffects.play_frog()
 		SOCK:
 			$main_character.anim_sock()
+			$SoundEffects.play_sock()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
