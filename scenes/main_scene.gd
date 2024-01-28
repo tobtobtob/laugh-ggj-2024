@@ -133,7 +133,7 @@ func start_level():
 func start_ending():
 	$audience_scene.set_audience_to_howling(12.0)
 	$Camera2D.start_end_zoom()
-	end_character_timer.start(8.0)
+	end_character_timer.start(10.0)
 
 #ending timer
 func _on_end_timer_character_mark_timeout():
