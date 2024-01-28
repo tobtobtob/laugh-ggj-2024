@@ -3,7 +3,7 @@ extends Node2D
 var hit_effect = load("res://scenes/success_effect.tscn")
 @onready var start_timer = $Timer
 
-var not_done = true
+var tutorial_started = false
 
 func _ready():
 	$press.hide()
@@ -11,9 +11,8 @@ func _ready():
 	start_timer.start(3.0)
 	
 func show_tutorial():
-	if not_done:
-		$press.show()
-		$drum.show()
+	$press.show()
+	$drum.show()
 
 func complete():
 	var hit_effect = hit_effect.instantiate()
@@ -25,3 +24,4 @@ func complete():
 
 func _on_timer_timeout():
 	show_tutorial()
+	tutorial_started = true

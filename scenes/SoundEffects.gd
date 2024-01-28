@@ -32,6 +32,14 @@ func play_howl():
 func play_murina():
 	$Murina.play()
 
+func play_ambience():
+	if !$Ambience.playing:
+		$Ambience.play()
+
+func stop_ambience():
+	$Ambience.stop()
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass

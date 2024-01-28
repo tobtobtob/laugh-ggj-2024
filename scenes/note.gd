@@ -61,7 +61,5 @@ func _on_hitbox_body_entered(body):
 
 func _on_hitbox_body_exited(body):
 	if !body.is_successful():
-		print(body.note_hit)
-		print(body.type)
 		get_parent().lose_hp()
 	body.fading = true

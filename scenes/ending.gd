@@ -31,6 +31,7 @@ func reveal_credits():
 
 #jokes
 func _on_jokes_timer_timeout():
+	get_parent().start_final_theme()
 	reveal_jokes()
 
 #on
@@ -44,4 +45,3 @@ func _on_you_timer_timeout():
 #credits
 func _on_credits_timer_timeout():
 	reveal_credits()
-	get_parent().start_final_theme()

@@ -9,7 +9,7 @@ var first_tempo = 100
 var second_tempo = 120
 const THEME_CHANGE_LEVEL = 9
 
-var current_level = 10
+var current_level = 0
 
 var levels = [
 	#level 0: learn drum
@@ -42,12 +42,6 @@ var levels = [
 	CAKE, REST, CAKE, REST, CAKE, REST, FROG, REST,
 	CAKE, CAKE, FROG, FROG, REST, REST, CAKE, CAKE,
 	FROG, FROG, REST, CAKE, CAKE, CAKE, CAKE, FROG],
-	#level 5: cake and drum
-	[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
-	CAKE, REST, DRUM, CAKE, REST, DRUM, DRUM, DRUM,
-	CAKE, DRUM, CAKE, DRUM, CAKE, CAKE, DRUM, DRUM,
-	REST, CAKE, CAKE, REST, DRUM, DRUM, REST, CAKE,
-	DRUM, CAKE, DRUM, CAKE, CAKE, DRUM, DRUM, DRUM],
 	#level 6: socks and frog and surprise cake
 	[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
 	SOCK, FROG, SOCK, FROG, REST, FROG, FROG, REST,
@@ -76,9 +70,26 @@ var levels = [
 	CAKE, REST, REST, REST, CAKE, REST, CAKE, REST,
 	DRUM, CAKE, CAKE, DRUM, REST, DRUM, DRUM, REST,
 	CAKE, REST, REST, REST, CAKE, REST, CAKE, REST],
-	#test_ending
+	#asd and das
 	[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
-	CAKE],
+	CAKE, SOCK, DRUM, REST, CAKE, SOCK, DRUM, REST,
+	CAKE, SOCK, DRUM, REST, DRUM, SOCK, CAKE, REST,
+	CAKE, CAKE, SOCK, DRUM, DRUM, SOCK, CAKE, CAKE,
+	REST, CAKE, SOCK, DRUM, REST, CAKE, SOCK, DRUM,
+	REST, CAKE, DRUM, DRUM, CAKE, SOCK, REST, CAKE,
+	CAKE, CAKE, CAKE, REST, REST, SOCK, SOCK, SOCK,
+	REST, REST, DRUM, DRUM, DRUM, REST, DRUM, CAKE,
+	REST, CAKE, REST, REST, CAKE, REST, DRUM, DRUM],
+	#LAST LEVEL VERY HARD
+	[EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY,
+	FROG, CAKE, DRUM, SOCK, REST, REST, FROG, CAKE,
+	DRUM, SOCK, REST, REST, FROG, CAKE, REST, DRUM,
+	SOCK, REST, FROG, CAKE, DRUM, SOCK, REST, REST,
+	FROG, DRUM, SOCK, CAKE, REST, CAKE, SOCK, REST,
+	DRUM, FROG, REST, FROG, CAKE, REST, DRUM, SOCK,
+	REST, FROG, CAKE, DRUM, SOCK, REST, REST, REST,
+	DRUM, DRUM, DRUM, DRUM, CAKE, FROG, SOCK, REST,
+	DRUM, DRUM, DRUM, DRUM, CAKE, FROG, REST, FROG],
 ]
 
 const LEVEL_CHANGE_TIME = 3
@@ -98,6 +109,7 @@ func game_won():
 func game_over():
 	running = false
 	print('game over')
+	$SoundEffects.stop_ambience()
 	$SoundEffects.play_murina()
 	$Conductor.stop()
 	$audience_scene.set_audience_to_attack()
@@ -113,6 +125,7 @@ func level_completed():
 		game_won()
 		return
 	$audience_scene.set_audience_to_laughing(LEVEL_CHANGE_TIME)
+	$SoundEffects.stop_ambience()
 	$SoundEffects.play_laugh()
 	
 	$Controller/HitPoints.reset_hp()
@@ -130,6 +143,7 @@ func start_level():
 	elif current_level >= THEME_CHANGE_LEVEL:
 		$Conductor.init(second_theme, 120)
 	$Conductor.play_from_beat(0, 1)
+	$SoundEffects.play_ambience()
 	
 @onready var end_character_timer = $end_timer_character_mark	
 
@@ -165,7 +179,7 @@ func trigger_effect(type):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if init_screen and Input.is_action_just_pressed("KEY_DRUM"):
+	if init_screen and $tutorial.tutorial_started and Input.is_action_just_pressed("KEY_DRUM"):
 		$Camera2D.game_starts()
 		$tutorial.complete()
 		init_screen = false
