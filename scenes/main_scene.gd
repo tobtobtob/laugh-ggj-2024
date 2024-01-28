@@ -42,7 +42,8 @@ var current_level = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	start_level()
+	$LevelChangeTimer.one_shot = true
+	$LevelChangeTimer.start(LEVEL_CHANGE_TIME)
 
 func game_won():
 	running = false
@@ -63,7 +64,6 @@ func level_completed():
 		game_won()
 		return
 	$audience_scene.set_audience_to_laughing(LEVEL_CHANGE_TIME)
-	$LevelChangeTimer.one_shot = true
 	$LevelChangeTimer.start(LEVEL_CHANGE_TIME)
 
 func start_level():
