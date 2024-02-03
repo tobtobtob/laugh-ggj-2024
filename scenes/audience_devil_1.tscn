@@ -426,13 +426,13 @@ states/idle/position = Vector2(577, 170)
 states/laugh/node = SubResource("AnimationNodeAnimation_65utw")
 states/laugh/position = Vector2(661, 290)
 transitions = ["idle", "laugh", SubResource("AnimationNodeStateMachineTransition_yateo"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_v643m"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_dmx4q"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_ongee"), "idle", "howl", SubResource("AnimationNodeStateMachineTransition_ixxkv"), "howl", "idle", SubResource("AnimationNodeStateMachineTransition_knr0b")]
-graph_offset = Vector2(-154, -321)
+graph_offset = Vector2(-140, -21)
 
 [node name="audience_devil_1" type="Node2D"]
 script = ExtResource("1_xf8sq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.15, 0.147031)
+scale = Vector2(0.15, 0.147731)
 sprite_frames = SubResource("SpriteFrames_oyrd4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

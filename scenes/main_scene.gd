@@ -7,7 +7,7 @@ var second_theme = load("res://sounds/second_theme.wav")
 
 var first_tempo = 100
 var second_tempo = 120
-const THEME_CHANGE_LEVEL = 9
+const THEME_CHANGE_LEVEL = 8
 
 var current_level = 0
 

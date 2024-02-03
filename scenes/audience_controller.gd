@@ -6,6 +6,7 @@ extends Node2D
 
 @export var audience_state = 0
 var laughing = false
+var level_completed = 0
 
 # characters
 @onready var orc_1 = $audience_orc_1
@@ -23,19 +24,39 @@ var laughing = false
 	devil_1, devil_2,
 	viking_1, viking_2,
 	]
+	
+@onready var howling_audience = [
+
+]
 
 func _ready():
 	pass
 
 func set_audience_to_laughing(duration):
+	level_completed = level_completed + 1
+	update_audience()
+	
 	for character in audience:
 		character.state = "laugh"
+		
+	for character in howling_audience:
+		character.state = "howl"
 	
 	laughing = true
 	
 	timer.start(duration)
 	
+func update_audience():
+	if level_completed >= 4:
+		if audience[0] != null:
+			audience.shuffle()
+			howling_audience.insert(0, audience[0])
+			audience.remove_at(0)
+	
 func set_audience_to_howling(duration):
+	for character in howling_audience:
+		character.state = "howl"
+		
 	for character in audience:
 		character.state = "howl"
 	
@@ -45,6 +66,9 @@ func set_audience_to_howling(duration):
 		
 func set_audience_to_idle():
 	for character in audience:
+		character.state = "idle"
+		
+	for character in howling_audience:
 		character.state = "idle"
 		
 	laughing = false

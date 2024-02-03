@@ -287,7 +287,7 @@ states/idle/position = Vector2(454, 43)
 states/laugh/node = SubResource("AnimationNodeAnimation_axbon")
 states/laugh/position = Vector2(561, 136)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_df0jg"), "idle", "laugh", SubResource("AnimationNodeStateMachineTransition_1pqhj"), "laugh", "idle", SubResource("AnimationNodeStateMachineTransition_s2xcu"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_nqiyp"), "idle", "howl", SubResource("AnimationNodeStateMachineTransition_sx21a"), "howl", "idle", SubResource("AnimationNodeStateMachineTransition_eufjs")]
-graph_offset = Vector2(-169, -338)
+graph_offset = Vector2(-233, -142)
 
 [node name="audience_viking_1" type="Node2D"]
 script = ExtResource("1_u68hs")

@@ -381,7 +381,6 @@ texture = ExtResource("11_qybty")
 centered = false
 
 [node name="fade_to_black" parent="." instance=ExtResource("12_775nf")]
-visible = false
 
 [node name="main_character" parent="." instance=ExtResource("12_56j7o")]
 position = Vector2(978, 703)
